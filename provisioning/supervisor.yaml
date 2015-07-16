@@ -1,0 +1,10 @@
+---
+- name: "install supervisor conf for {{ name }}"
+  template: src=templates/rogram.ini.j2 dest="/etc/supervisor/conf.d/{{ name }}.conf"
+
+- name: tell running supervisor about the new program
+  supervisorctl: name={{ name }} state=present
+
+- name: tell running supervisor to enact new changes
+  supervisorctl: name={{ name }} state=restarted
+  ignore_errors: yes

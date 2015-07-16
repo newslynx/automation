@@ -29,8 +29,9 @@
     - name: Create virtual environment.
       command: virtualenv --python=/usr/bin/python --no-site-packages {{python_env}}
 
-    - name: Install Newslynx-Core
-      pip: name='.' chdir={{root_dir}}/newslynx-core/ virtualenv={{python_env}}
+    - name: Install Newslynx-Core Repos
+      pip: name='.' chdir={{root_dir}}/{{item}}/ virtualenv={{python_env}}
+      with_items: newslynx_repos
 
     - name: ensure the dot newslynx directory EXISTS
       file: "state=directory path=~/.newslynx/ mode=0777"
@@ -40,8 +41,16 @@
                 dest="~/.newslynx/config.yaml"
                 mode=0777
 
+    - name: ensure the dot newslynx defaults directory EXISTS
+      file: "state=directory path=~/.newslynx/defaults mode=0777"
 
-    # # POSTGRES
+    - name: Make defaults.
+      command: "make defaults"
+      args:
+        chdir: "{{root_dir}}/newslynx-core/"
+      when: incl_defaults
+
+    # POSTGRES
 
     - name: ensure the pg mount directory EXISTS
       file: "state=directory path={{pg_mnt_point}} mode=0700 owner=postgres group=postgres"
@@ -76,6 +85,11 @@
     - name: restart postgres
       action: service name=postgresql state=started
 
+    - name: set postgres password
+      command: psql -d postgres -U postgres -c "ALTER USER postgres with password '{{pg_password}}'"
+      sudo: yes
+      sudo_user: postgres
+
     - name: create newslynx db
       command: "psql -d postgres -U postgres -c 'CREATE DATABASE {{pg_name}}'"
       sudo: yes
@@ -87,8 +101,15 @@
       args:
         chdir: "{{root_dir}}/newslynx-core/"
 
+    # START SUPERVISOR PROCESSES
 
-    # POSTGRES
+    - include: >
+        supervisor.yaml 
+        name=api
+        exec="PSYCOGREEN=true {{python_env}}/bin/gunicorn newslynx.views:app -b 127.0.0.1:{{api_port}} -w {{api_workers}} -k gevent -t {{api_timeout}}"
+        directory={{root_dir}}/newslynx-core
+        user=root
+
 
 
 

@@ -1,0 +1,20 @@
+[program:{{ name }}]
+command={{ exec }}
+{% if env is defined %}
+environment={{ env }}
+{% endif %}
+{% if directory is defined %}
+directory={{ directory }}
+{% endif %}
+process_name={{ name }}
+numprocs={{numprocs}}
+autostart=true
+autorestart=true
+stdout_logfile={{log_dir}}/{{ name }}.log
+stderr_logfile={{log_dir}}/{{ name }}.err
+{% if user is defined %}
+user={{ user }}
+{% endif %}
+{% if startretries is defined %}
+startretries={{ startretries }}
+{% endif %}

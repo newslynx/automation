@@ -3,11 +3,14 @@ root_dir: /opt/newslynx
 
 apt_packages:
     - git 
+    - gcc
     - python-pip
     - python-dev
+    - python-setuptools
     - python-virtualenv 
     - postgresql
     - postgresql-contrib
+    - postgresql-plpython
     - libpq-dev
     - libxml2-dev
     - libxslt1-dev
@@ -21,6 +24,7 @@ python_env: /opt/newslynx/.env
 pg_conf: /etc/postgresql/9.3/main/postgresql.conf 
 pg_dir: /mnt/pg
 pg_name: newslynx
+pg_password: changeme # put in secrets
 pg_mnt: true
 pg_mnt_point: /mnt
 pg_mnt_path: "{{ lookup('env', 'pg_mnt_path')}}"
@@ -29,4 +33,12 @@ pg_mnt_path: "{{ lookup('env', 'pg_mnt_path')}}"
 # newslynx repos
 newslynx_repos:
     - newslynx-core 
-    # - newslynx-app
+
+# include default tags + recipes?
+incl_defaults: true
+
+# supervisor configurations 
+api_port: 5000
+api_workers: 4 
+api_timeout: 240
+
