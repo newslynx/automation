@@ -1,0 +1,32 @@
+# apt dependencies
+root_dir: /opt/newslynx
+
+apt_packages:
+    - git 
+    - python-pip
+    - python-dev
+    - python-virtualenv 
+    - postgresql
+    - postgresql-contrib
+    - libpq-dev
+    - libxml2-dev
+    - libxslt1-dev
+    - libffi-dev
+    - supervisor 
+
+# python env.
+python_env: /opt/newslynx/.env
+
+# postgres
+pg_conf: /etc/postgresql/9.3/main/postgresql.conf 
+pg_dir: /mnt/pg
+pg_name: newslynx
+pg_mnt: true
+pg_mnt_point: /mnt
+pg_mnt_path: "{{ lookup('env', 'pg_mnt_path')}}"
+
+
+# newslynx repos
+newslynx_repos:
+    - newslynx-core 
+    # - newslynx-app

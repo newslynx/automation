@@ -1,0 +1,12 @@
+{
+    "ram": 8096,
+    "cpu": 4,
+    "pg_mnt": {
+        "path": "./tmp/pg_mnt.vdi",
+        "size": 524288,
+        "storagectl": "SATAController",
+        "port": 1,
+        "device": 0,
+        "type": "hdd"
+    }
+}
