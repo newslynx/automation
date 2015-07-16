@@ -11,34 +11,38 @@ apt_packages:
     - postgresql
     - postgresql-contrib
     - postgresql-plpython
+    - redis-server
     - libpq-dev
     - libxml2-dev
     - libxslt1-dev
     - libffi-dev
     - supervisor 
 
+# newslynx repos
+newslynx_python_repos:
+    - newslynx-core 
+
 # python env.
 python_env: /opt/newslynx/.env
 
 # postgres
 pg_conf: /etc/postgresql/9.3/main/postgresql.conf 
-pg_dir: /mnt/pg
+pg_dir: /mnt/db
 pg_name: newslynx
-pg_password: changeme # put in secrets
+pg_password: changeme # TODO: put in secrets
 pg_mnt: true
 pg_mnt_point: /mnt
 pg_mnt_path: "{{ lookup('env', 'pg_mnt_path')}}"
-
-
-# newslynx repos
-newslynx_repos:
-    - newslynx-core 
 
 # include default tags + recipes?
 incl_defaults: true
 
 # supervisor configurations 
 api_port: 5000
-api_workers: 4 
+api_workers: 5 
 api_timeout: 240
+bulk_workers: 10
+recipe_workers: 10
+cron_interval: 45
+
 

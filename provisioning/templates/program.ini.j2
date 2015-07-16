@@ -7,11 +7,12 @@ environment={{ env }}
 directory={{ directory }}
 {% endif %}
 process_name={{ name }}
-numprocs={{numprocs}}
+numprocs={{ numprocs }}
 autostart=true
 autorestart=true
-stdout_logfile={{log_dir}}/{{ name }}.log
-stderr_logfile={{log_dir}}/{{ name }}.err
+redirect_stderr=true
+stdout_logfile={{ logdir }}/{{ name }}.log
+stderr_logfile={{ logdir }}/{{ name }}.log
 {% if user is defined %}
 user={{ user }}
 {% endif %}
