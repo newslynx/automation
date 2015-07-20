@@ -1,0 +1,42 @@
+user www-data;
+worker_processes {{worker_processes}};
+pid /run/nginx.pid;
+
+events {
+  worker_connections {{worker_connections}};
+  multi_accept on;
+}
+
+http {
+    include       /etc/nginx/mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  {{log_file}}  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+    client_max_body_size 1g;
+
+    keepalive_timeout  65;
+    client_header_timeout 60s;
+
+    gzip  on;
+
+    server {
+        
+        listen 80;
+
+        location / {
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarder-For $proxy_add_x_forwarded_for;
+            proxy_set_header Host $http_host;
+            proxy_set_header X-NginX-Proxy true;
+            proxy_pass http://{{host}}:{{port}};
+            proxy_redirect off;
+        } 
+    }
+}

@@ -14,7 +14,7 @@
 
 - name: make sure the log directory exists
   file:
-    path: "{{root_dir}}/logs"
+    path: "{{home}}/logs"
     owner: root
     group: root
     mode: 0755
@@ -27,7 +27,7 @@
     state: present
 
 - name: create config file
-  template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root
+  template: src=templates/app-nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root
 
 - name: start nginx
   service: name=nginx state=restarted

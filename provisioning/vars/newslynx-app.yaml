@@ -1,0 +1,7 @@
+app_branch: v2
+app_port: 3000
+app_host: 127.0.0.1
+app_nginx_worker_connections: 1024
+app_nginx_worker_processes: 4
+
+nodejs_version: "0.12"

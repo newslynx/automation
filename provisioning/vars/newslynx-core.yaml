@@ -1,3 +1,5 @@
+core_branch: master
+
 # newslynx repos
 sous_chef_modules: []
 
@@ -11,5 +13,4 @@ api_timeout: 240
 bulk_workers: 10
 recipe_workers: 10
 cron_interval: 45
-
 

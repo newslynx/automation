@@ -12,5 +12,8 @@
             "device": 0,
             "type": "hdd"
         }
+    },
+    "aws": {
+        
     }
 }

@@ -1,0 +1,78 @@
+#   _   _   _   _   _   _   _   _
+#  / \ / \ / \ / \ / \ / \ / \ / \
+# ( n | e | w | s | l | y | n | x )
+#  \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/
+
+# ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+# Super User / Org.
+super_user: admin
+super_user_email: changme@example.com
+super_user_password: admin
+super_user_apikey: mj
+super_user_org: 'admin'
+super_user_org_timezone: UTC
+
+# Secrete keys
+secret_key: changeme1
+app_secret_key: changeme2
+
+# Database curations
+sqlalchemy_pool_size: 1000
+sqlalchemy_pool_max_overflow: 100
+sqlalchemy_pool_timeout: 60
+sqlalchemy_echo: false
+
+# TASK QUEUE
+redis_url: "redis://localhost:6379/0"
+
+# url cache
+url_cache_prefix: "newslynx-url-cache"
+url_cache_ttl: 1209600
+url_cache_pool_size: 5
+
+# extraction cache
+extract_cache_prefix: "newslynx-extract-cache"
+extract_cache_ttl: 259200  # 3 days
+
+# thumbnail settings
+thumbnail_cache_prefix: "newslynx-thumbnail-cache"
+thumbnail_cache_ttl: 1209600  # 14 days
+thumbnail_size: [150, 150]
+thumbnail_default_format: "png"
+
+# comparison cache
+comparison_cache_prefix: "newslynx-comparison-cache"
+comparison_cache_ttl: 86400  # 1 day
+comparison_percentiles: [2.5, 5.0, 10.0, 25.0, 75.0, 90.0, 95.0, 97.5]
+
+# merlynne kwargs prefix
+merlynne_kwargs_prefix: "newslynx-merlynne-kwargs"
+merlynne_kwargs_ttl: 60
+merlynne_results_ttl: 60
+
+# scheduler
+scheduler_refresh_interval: 45
+scheduler_reset_pause_range: [20, 200]
+
+# browser
+browser_user_agent: "mozilla/5.0 (macintosh; intel mac os x 10_10; rv:33.0) gecko/20100101 firefox/33.0"
+browser_timeout: (7, 27)
+browser_wait: 0.8
+browser_backoff: 2
+browser_max_retries: 2
+
+# # Twitter
+# twitter_api_key: dsfadfad
+# twitter_api_secret: 3824-3482-341234
+
+# # Google Analytics
+# google_analytics_client_id: sdfasdfsafd
+# google_analytics_client_secret: o34823-4-23234
+
+# # Facebook
+# facebook_app_id: 24123413412
+# facebook_app_secret: lajd38opru2j
+
+# Reddit
+reddit_user_agent: Newslynx (http://newslynx.org)

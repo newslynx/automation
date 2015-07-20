@@ -14,20 +14,15 @@
 
 - name: create a ext4 filesystem if a mounted drive is specified
   command: "mkfs.ext4 -F {{pg_mnt_path}}"
-  when: pg_mnt_path is defined  
-  ignore_errors: yes
 
 - name: mount a drive if specified
   mount: "name={{pg_mnt_point}} src={{pg_mnt_path}} fstype=ext4 state=mounted"
-  when: pg_mnt_path is defined
-  ignore_errors: yes
 
 - name: ensure the postgres data directory exists
   file: "state=directory path={{pg_dir}} mode=0700 owner=postgres group=postgres"
 
 - name: change the data directory to a mounted drive in pgconf
   lineinfile: dest={{pg_conf}} state=present regexp="^data_directory" line="data_directory=\'{{pg_dir}}\'"
-  when: pg_mnt
 
 - name: change the data directory to a mounted drive in pgconf
   lineinfile: dest={{pg_conf}} state=present regexp="^data_directory" line="data_directory=\'{{pg_dir}}\'"
@@ -37,13 +32,12 @@
   command: "/usr/lib/postgresql/9.3/bin/initdb -D {{pg_dir}}"
   sudo: yes
   sudo_user: postgres
-  ignore_errors: yes
 
 - name: restart postgres
   action: service name=postgresql state=started
 
 - name: set postgres password
-  command: psql -d postgres -U postgres -c "ALTER USER postgres with password '{{pg_password}}'"
+  command: psql -d postgres -U postgres -c \"ALTER USER postgres with password '{{pg_password}}'
   sudo: yes
   sudo_user: postgres
 
@@ -51,5 +45,4 @@
   command: "psql -d postgres -U postgres -c 'CREATE DATABASE {{pg_name}}'"
   sudo: yes
   sudo_user: postgres
-  ignore_errors: yes
 

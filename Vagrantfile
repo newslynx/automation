@@ -7,11 +7,10 @@ servers = JSON.parse(servers)
 vb = servers["virtualbox"]
 
 Vagrant.configure("2") do |config|
-  
   config.vm.box = vb["box"]
   config.vm.box_url = vb['box_url']
   config.vm.network "forwarded_port", guest: 5000, host: 5001
-  config.vm.network "forwarded_port", guest: 3000, host: 3001
+  config.vm.network "forwarded_port", guest: 80, host: 3001
   config.vm.define "newslynx" do |machine|
     machine.vm.provider :virtualbox do |v|  
       if vb["ram"]

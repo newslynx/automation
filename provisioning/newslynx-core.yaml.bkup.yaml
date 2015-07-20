@@ -1,0 +1,93 @@
+---
+- name: install newslynx-core apt requirements.
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - libxml2-dev
+    - libxslt1-dev
+    - libffi-dev 
+    - postgresql-plpython
+    - python-pip
+    - python-dev
+    - python-setuptools
+  sudo: yes
+
+- name: clone newslynx-core to remote server
+  git: repo=git://github.com/newslynx/newslynx-core.git 
+     dest={{home}}/newslynx-core
+     accept_hostkey=true
+
+- name: 'checkout the branch.
+  command: "git checkout {{core_branch}}"
+  args:
+    chdir: "{{home}}/newslynx-core/"
+  ignore_errros: yes
+
+- name: install newslynx-core
+  pip: name=.
+  args:
+    chdir: "{{home}}/newslynx-core/"
+  sudo: yes
+
+- name: ensure the dot newslynx directory EXISTS
+  file: "state=directory path=~/.newslynx/ mode=0700"
+  sudo: yes
+
+- name: copy config template
+  template: src="templates/config.yaml.j2"
+            dest="~/.newslynx/config.yaml"
+            mode=0700
+  sudo: yes
+
+- name: ensure the dot newslynx defaults directory exists
+  file: "state=directory path=~/.newslynx/defaults mode=0700"
+  sudo: yes
+
+- name: Make defaults.
+  command: "make defaults"
+  args:
+    chdir: "{{home}}/newslynx-core/"
+  when: incl_defaults
+  sudo: yes
+
+- name: initialize newslynx database.
+  command: "/usr/local/bin/newslynx init --defaults"
+  sudo: yes 
+  args:
+    chdir: "{{home}}/newslynx-core/"
+
+# # SUPERVISOR
+# - include: supervisor.yaml  
+#   vars: 
+#     name: api  
+#     exec: "/usr/local/bin/gunicorn newslynx.views:app -b 0.0.0.0:{{api_port}} -w {{api_workers}} -k gevent -t {{api_timeout}}"
+#     directory: "{{home}}/newslynx-core"
+#     logdir: "{{home}}/logs"
+#     numprocs: 1
+#     user: root
+
+# - include: supervisor.yaml 
+#   vars: 
+#     name: bulk
+#     exec: "/usr/local/bin/rqworker bulk"
+#     directory: "{{home}}/newslynx-core/"
+#     logdir: "{{home}}/logs"
+#     numprocs: "{{bulk_workers}}"
+#     user: root
+
+# - include: supervisor.yaml 
+#   vars:
+#     name: recipe
+#     exec: "/usr/local/bin/rqworker recipe"
+#     directory: "{{home}}/newslynx-core"
+#     logdir: "{{home}}/logs"
+#     numprocs: "{{recipe_workers}}"
+#     user: root
+
+# - include: supervisor.yaml
+#   vars: 
+#     name: cron
+#     exec: "/usr/local/bin/newslynx cron --interval={{cron_interval}}"
+#     directory: "{{home}}/newslynx-core"
+#     logdir: "{{home}}/logs"
+#     numprocs: 1
+#     user: root

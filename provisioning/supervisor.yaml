@@ -1,17 +1,14 @@
 ---
 - name: ensure the log directory EXISTS
-  file: "state=directory path={{root_dir}}/logs mode=0700"
+  file: "state=directory path={{home}}/logs mode=0700"
 
 - name: "install supervisor conf for {{ name }}"
-  template: src=templates/supervisor.conf.j2 dest="/etc/supervisor/conf.d/{{ name }}.conf"
-  sudo: yes
+  template: "src=templates/supervisor.conf.j2 dest=/etc/supervisor/conf.d/{{ name }}.conf"
 
 - name: tell running supervisor about the new program
-  supervisorctl: name={{ name }} state=present
+  supervisorctl: "name={{ name }} state=present"
   ignore_errors: yes
-  sudo: yes
 
 - name: tell running supervisor to enact new changes
-  supervisorctl: name={{ name }} state=restarted
+  supervisorctl: "name={{ name }} state=restarted"
   ignore_errors: yes
-  sudo: yes

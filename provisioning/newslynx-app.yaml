@@ -1,0 +1,52 @@
+---
+
+- name: install global npm packages
+  npm: name=gulp  global=yes
+  with_items:
+    - gulp 
+    - node-gyp 
+    - node-pre-gyp
+
+
+- name: clone newslynx-app to remote server
+  git: |
+    repo=git://github.com/newslynx/newslynx-app.git 
+    dest={{home}}/newslynx-app
+    accept_hostkey=true
+
+
+- name: checkout branch
+  command: "git checkout {{app_branch}}"
+  args:
+    chdir: "{{home}}/newslynx-app/"
+  ignore_errors: yes
+
+
+- name: install leveldb 
+  npm: name=level path={home}}/newslynx-app
+
+
+- name: install app dependencies
+  npm: "path={{home}}/newslynx-app"
+
+
+- include: supervisor.yaml 
+  vars: 
+    name: app
+    exec: "/usr/bin/gulp && ./bin/www.js run {{app_port}} {{app_host}}"
+    directory: "{{home}}/newslynx-app/"
+    logdir: "{{home}}/logs"
+    numprocs: 1
+    user: root
+
+
+- include: nginx.yaml
+  vars:
+    port: "{{app_port}}"
+    host: "{{app_host}}"
+    log_file: "{{home}}/logs/access.log"
+    worker_connections: "{{app_nginx_worker_connections}}"
+    worker_processes: "{{app_nginx_worker_processes}}"
+
+
+

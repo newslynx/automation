@@ -7,17 +7,18 @@
 
 # Secret Stuff
 
-secret_key: {{conf.secret_key}}
-app_secret_key: {{conf.app_secret_key}}
-super_user: {{conf.super_user}}
-super_user_email: {{conf.super_user_email}}
-super_user_password: {{conf.super_user_password}}
-super_user_apikey: {{conf.super_user_apikey}}
+secret_key: {{c.secret_key}}
+app_secret_key: {{c.app_secret_key}}
+super_user: {{c.super_user}}
+super_user_email: {{c.super_user_email}}
+super_user_password: {{c.super_user_password}}
+super_user_apikey: {{c.super_user_apikey}}
 
 # Filepaths to default recipes + tags to add for each
 # new organization.
 default_recipes: ~/.newslynx/defaults/recipes.yaml
 default_tags: ~/.newslynx/defaults/tags.yaml
+default_sous_chefs: ~/.newslynx/sous-chefs
 
 # API curations #
 api_url: "http://localhost:5000"
@@ -70,63 +71,63 @@ browser_wait: 0.8
 browser_backoff: 2
 browser_max_retries: 2
 
-{% if conf.pandoc_path is defined %}
+{% if c.pandoc_path is defined %}
 # Pandoc
-pandoc_path: {{conf.pandoc_path}}
+pandoc_path: {{c.pandoc_path}}
 {% endif %}
 
-{% if conf.twitter_api_key is defined %}
+{% if c.twitter_api_key is defined %}
 # Twitter
-twitter_api_key: {{conf.twitter_api_key}}
+twitter_api_key: {{c.twitter_api_key}}
 {% endif %}
-{% if conf.twitter_api_secret is defined %}
-twitter_api_secret: {{conf.twitter_api_secret}}
+{% if c.twitter_api_secret is defined %}
+twitter_api_secret: {{c.twitter_api_secret}}
 {% endif %}
 
-{% if conf.google_analytics_client_id is defined %}
+{% if c.google_analytics_client_id is defined %}
 # Google Analytics
-google_analytics_client_id: {{conf.google_analytics_client_id}}
+google_analytics_client_id: {{c.google_analytics_client_id}}
 {% endif %}
-{% if conf.google_analytics_client_id is defined %}
-google_analytics_client_secret: {{conf.google_analytics_client_secret}}
+{% if c.google_analytics_client_id is defined %}
+google_analytics_client_secret: {{c.google_analytics_client_secret}}
 {% endif %}
 
-{% if conf.facebook_app_id is defined %}
+{% if c.facebook_app_id is defined %}
 # Facebook
-facebook_app_id: {{conf.facebook_app_id}}
+facebook_app_id: {{c.facebook_app_id}}
 {% endif %}
-{% if conf.facebook_app_secret is defined %}
-facebook_app_secret: {{conf.facebook_app_secret}}
+{% if c.facebook_app_secret is defined %}
+facebook_app_secret: {{c.facebook_app_secret}}
 {% endif %}
 
-{% if conf.bitly_access_token is defined %}
+{% if c.bitly_access_token is defined %}
 # Bitly
-bitly_access_token: {{conf.bitly_access_token}}
+bitly_access_token: {{c.bitly_access_token}}
 {% endif %}
 
-{% if conf.bitly_access_token is defined %}
+{% if c.bitly_access_token is defined %}
 # Embedly
-embedly_access_token: {{conf.embedly_access_token}}
+embedly_access_token: {{c.embedly_access_token}}
 {% endif %}
 
-{% if conf.mail_username is defined %}
+{% if c.mail_username is defined %}
 # Email
-mail_username: {{conf.mail_username}}
+mail_username: {{c.mail_username}}
 {% endif %}
-{% if conf.mail_password is defined %}
-mail_password: {{conf.mail_password}}
+{% if c.mail_password is defined %}
+mail_password: {{c.mail_password}}
 {% endif %}
-{% if conf.mail_server is defined %}
-mail_server: {{conf.mail_server}}
+{% if c.mail_server is defined %}
+mail_server: {{c.mail_server}}
 {% endif %}
-{% if conf.smtp_port is defined %}
-smtp_port: {{conf.smtp_port}}
+{% if c.smtp_port is defined %}
+smtp_port: {{c.smtp_port}}
 {% endif %}
-{% if conf.imap_port is defined %}
-imap_port: {{conf.imap_port}}
+{% if c.imap_port is defined %}
+imap_port: {{c.imap_port}}
 {% endif %}
 
 # reddit
-{% if conf.reddit is defined %}
-reddit_user_agent: {{conf.reddit}}
+{% if c.reddit is defined %}
+reddit_user_agent: {{c.reddit}}
 {% endif %}
