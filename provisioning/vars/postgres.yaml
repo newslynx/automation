@@ -1,0 +1,7 @@
+pg_conf: /etc/postgresql/9.3/main/postgresql.conf 
+pg_dir: /mnt/db
+pg_name: newslynx
+pg_password: changeme # TODO: put in secrets
+pg_mnt: true
+pg_mnt_point: /mnt
+pg_mnt_path: "{{ lookup('env', 'pg_mnt_path')}}"

@@ -1,31 +1,33 @@
 require 'json'
 require 'fileutils'
 
-# read service definitions
-service = File.read('./box.json')
-svc = JSON.parse(service)
+# read servers definitions
+servers = File.read('./servers.json')
+servers = JSON.parse(servers)
+vb = servers["virtualbox"]
 
 Vagrant.configure("2") do |config|
   
-  config.vm.box = "trusty64"
-  config.vm.box_url = "https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box"
-
+  config.vm.box = vb["box"]
+  config.vm.box_url = vb['box_url']
+  config.vm.network "forwarded_port", guest: 5000, host: 5001
+  config.vm.network "forwarded_port", guest: 3000, host: 3001
   config.vm.define "newslynx" do |machine|
     machine.vm.provider :virtualbox do |v|  
-      if svc["ram"]
-        v.memory = svc["ram"]
+      if vb["ram"]
+        v.memory = vb["ram"]
       else
         v.memory = 8096
       end
-      if svc["cpu"]
-        v.cpus = svc["cpu"]
+      if vb["cpu"]
+        v.cpus = vb["cpu"]
       else
         v.cpus = 4
       end
 
       # include a mounted drive for postgres
-      if svc["pg_mnt"]
-        d = svc["pg_mnt"]
+      if vb["pg_mnt"]
+        d = vb["pg_mnt"]
         v.customize [
           "createhd", 
           "--filename", d["path"], 
@@ -44,7 +46,7 @@ Vagrant.configure("2") do |config|
 
     machine.vm.provision "ansible" do |ansible|
       ansible.extra_vars = { ansible_ssh_user: "vagrant", hostname: "newslynx"}
-      ansible.playbook = "provisioning/newslynx.yaml"
+      ansible.playbook = "provisioning/main.yaml"
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
         pg_mnt_path: "/dev/sdb"

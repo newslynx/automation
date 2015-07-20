@@ -6,7 +6,7 @@ environment={{ env }}
 {% if directory is defined %}
 directory={{ directory }}
 {% endif %}
-process_name={{ name }}
+process_name={{ name }}-%(process_num)s
 numprocs={{ numprocs }}
 autostart=true
 autorestart=true

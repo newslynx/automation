@@ -1,0 +1,15 @@
+# newslynx repos
+sous_chef_modules: []
+
+# include default tags + recipes?
+incl_defaults: true
+
+# supervisor configurations 
+api_port: 5000
+api_workers: 5 
+api_timeout: 240
+bulk_workers: 10
+recipe_workers: 10
+cron_interval: 45
+
+

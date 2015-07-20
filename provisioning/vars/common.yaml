@@ -1,0 +1,3 @@
+# apt dependencies
+root_dir: /opt/newslynx
+python_env: /opt/newslynx/.env

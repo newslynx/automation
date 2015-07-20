@@ -1,0 +1,33 @@
+---
+- name: add the nginx repository
+  apt_repository:
+    repo: ppa:nginx/stable
+
+- name: make sure the nginx directory exists
+  file:
+    path: "/etc/nginx"
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+    state: directory
+
+- name: make sure the log directory exists
+  file:
+    path: "{{root_dir}}/logs"
+    owner: root
+    group: root
+    mode: 0755
+    recurse: yes
+    state: directory
+
+- name: make sure nginx is installed (package)
+  apt:
+    pkg: nginx
+    state: present
+
+- name: create config file
+  template: src=templates/nginx.conf.j2 dest=/etc/nginx/nginx.conf owner=root
+
+- name: start nginx
+  service: name=nginx state=restarted

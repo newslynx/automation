@@ -1,0 +1,32 @@
+---
+- hosts: all
+  gather_facts: yes
+  sudo: yes
+
+  vars_files:
+    - vars/common.yaml
+    - vars/newslynx-core.yaml
+    - vars/postgres.yaml
+
+  # install postgres and postgis, mount a disk, change the data directory
+  tasks:
+
+    # Common.
+    - name: Install common apt packages
+      apt: name={{item}} state=present update_cache=yes
+      with_items:
+        - git
+        - gcc 
+        - supervisor
+        - htop
+        - jq
+      sudo: yes
+
+    - name: ensure the root directory exists
+      file: "state=directory path={{root_dir}} mode=0700"
+
+    # # Roles
+
+    - include: postgres.yaml
+    - include: redis.yaml
+    - include: newslynx-core.yaml
