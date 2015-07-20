@@ -14,9 +14,11 @@
 
 - name: create a ext4 filesystem if a mounted drive is specified
   command: "mkfs.ext4 -F {{pg_mnt_path}}"
+  ignore_errors: yes
 
 - name: mount a drive if specified
   mount: "name={{pg_mnt_point}} src={{pg_mnt_path}} fstype=ext4 state=mounted"
+  ignore_errors: yes
 
 - name: ensure the postgres data directory exists
   file: "state=directory path={{pg_dir}} mode=0700 owner=postgres group=postgres"
@@ -32,17 +34,20 @@
   command: "/usr/lib/postgresql/9.3/bin/initdb -D {{pg_dir}}"
   sudo: yes
   sudo_user: postgres
+  ignore_errors: yes
 
 - name: restart postgres
   action: service name=postgresql state=started
 
 - name: set postgres password
-  command: psql -d postgres -U postgres -c \"ALTER USER postgres with password '{{pg_password}}'
+  command: psql -d postgres -U postgres -c "ALTER USER postgres with password '{{pg_password}}'"
   sudo: yes
   sudo_user: postgres
+  ignore_errors: yes
 
 - name: create newslynx db
   command: "psql -d postgres -U postgres -c 'CREATE DATABASE {{pg_name}}'"
   sudo: yes
   sudo_user: postgres
+  ignore_errors: yes
 

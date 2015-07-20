@@ -8,9 +8,9 @@ incl_defaults: true
 
 # supervisor configurations 
 api_port: 5000
-api_workers: 5 
+api_workers: 4 
 api_timeout: 240
-bulk_workers: 10
-recipe_workers: 10
+bulk_workers: 5
+recipe_workers: 5
 cron_interval: 45
 

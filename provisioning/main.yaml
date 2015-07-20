@@ -1,8 +1,5 @@
 ---
 - hosts: all
-  roles:
-     - nodesource.node
-
   gather_facts: yes
   sudo: yes
 
@@ -35,9 +32,5 @@
     - include: postgres.yaml
     - include: redis.yaml
     - include: newslynx-core.yaml
-    #   tags: 
-    #     - dev
     - include: newslynx-app.yaml
-      # tags:
-      #   - dev
 
