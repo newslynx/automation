@@ -22,6 +22,14 @@
     chdir: "{{home}}/newslynx-core/"
   ignore_errors: yes
 
+- name: pull
+  command: "git pull origin {{core_branch}}"
+  args:
+    chdir: "{{home}}/newslynx-core/"
+  sudo: yes
+
+- name: install newslynx-core
+
 - name: install newslynx-core
   pip: name="."
   args:

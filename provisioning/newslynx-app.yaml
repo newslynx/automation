@@ -20,6 +20,13 @@
   args:
     chdir: "{{home}}/newslynx-app/"
   ignore_errors: yes
+  sudo: yes
+
+- name: pull
+  command: "git pull origin {{core_branch}}"
+  args:
+    chdir: "{{home}}/newslynx-core/"
+  sudo: yes
 
 - name: install leveldb 
   npm: name=level path={home}}/newslynx-app
