@@ -1,4 +1,7 @@
 ---
+- include: postgres.yaml
+- include: redis.yaml
+
 - name: install newslynx-core apt requirements.
   apt: name={{item}} state=present update_cache=yes
   with_items:
@@ -29,8 +32,6 @@
   sudo: yes
 
 - name: install newslynx-core
-
-- name: install newslynx-core
   pip: name="."
   args:
     chdir: "{{home}}/newslynx-core/"
@@ -43,24 +44,28 @@
 - name: copy config template
   template: 
   args:
-    src: "templates/config.yaml.j2"
+    src: "templates/.newslynx/config.yaml.j2"
     dest: "~/.newslynx/config.yaml"
-    mode: mode=0700
+    mode: 0700
   sudo: yes
 
 - name: ensure the dot newslynx defaults directory exists
   file: "state=directory path=~/.newslynx/defaults mode=0700"
   sudo: yes
 
-- name: Make defaults.
-  command: "make defaults"
+- name: Create default tags and recipes.
+  template: 
   args:
-    chdir: "{{home}}/newslynx-core/"
-  when: incl_defaults
+    src: "templates/.newslynx/defaults/{{item}}.yaml.j2"
+    dest: "~/.newslynx/defaults/{{item}}.yaml"
+    mode: 0700
+  with_items:
+    - tags 
+    - recipes 
   sudo: yes
 
 - name: initialize newslynx database.
-  command: "/usr/local/bin/newslynx init --defaults"
+  command: "/usr/local/bin/newslynx init"
   sudo: yes 
   args:
     chdir: "{{home}}/newslynx-core/"

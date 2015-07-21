@@ -1,5 +1,9 @@
 require 'json'
 require 'fileutils'
+require 'yaml'
+
+# read in config.yaml
+conf = YAML::load(File.open('./config.yaml'))
 
 # read servers definitions
 servers = File.read('./servers.json')
@@ -11,6 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = vb['box_url']
   config.vm.network "forwarded_port", guest: 5000, host: 5001
   config.vm.network "forwarded_port", guest: 80, host: 3001
+  config.vm.network "forwarded_port", guest: 5432, host: 2345
   config.vm.define "newslynx" do |machine|
     machine.vm.provider :virtualbox do |v|  
       if vb["ram"]
@@ -48,7 +53,8 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "provisioning/main.yaml"
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
-        pg_mnt_path: "/dev/sdb"
+        pg_mnt_path: "/dev/sdb",
+        conf: conf 
       }
     end
   end

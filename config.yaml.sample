@@ -13,9 +13,9 @@ super_user_apikey: mj
 super_user_org: 'admin'
 super_user_org_timezone: UTC
 
-# Secrete keys
+# Secret keys
 secret_key: changeme1
-app_secret_key: changeme2
+newslynx_app_secret_key: changeme2
 
 # Database curations
 sqlalchemy_pool_size: 1000

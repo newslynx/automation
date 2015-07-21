@@ -18,8 +18,9 @@
 
 - name: Add NodeSource repository preferences
   template:
-    src: etc/apt/preferences.d/deb_nodesource_com_node.pref.2
+    src: templates/deb_nodesource_com_node.pref.2
     dest: /etc/apt/preferences.d/deb_nodesource_com_node.pref
 
 - name: Install Node.js
   apt: pkg=nodejs state=installed update_cache=yes
+  sudo: yes

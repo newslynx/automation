@@ -1,19 +1,12 @@
 ---
-
 - include: node.yaml
-
-- name: install global npm packages
-  npm: name=gulp  global=yes
-  with_items:
-    - gulp 
-    - node-gyp 
-    - node-pre-gyp
 
 - name: clone newslynx-app to remote server
   git: |
     repo=git://github.com/newslynx/newslynx-app.git 
     dest={{home}}/newslynx-app
     accept_hostkey=true
+  ignore_errors: yes
 
 - name: checkout branch
   command: "git checkout {{app_branch}}"
@@ -23,26 +16,26 @@
   sudo: yes
 
 - name: pull
-  command: "git pull origin {{core_branch}}"
+  command: "git pull origin {{app_branch}}"
   args:
-    chdir: "{{home}}/newslynx-core/"
+    chdir: "{{home}}/newslynx-app/"
   sudo: yes
-
-- name: install leveldb 
-  npm: name=level path={home}}/newslynx-app
+  ignore_errors: yes
 
 - name: install app dependencies
-  npm: "path={{home}}/newslynx-app"
+  command: sudo npm install 
+  args:
+    chdir: "{{home}}/newslynx-app"
+  sudo: yes
 
-- include: supervisor.yaml 
+# start with forever
+- include: forever.yaml 
   vars: 
-    name: app
-    exec: "/usr/bin/gulp && ./bin/www.js run {{app_port}} {{app_host}}"
+    exec: "/usr/local/bin/npm start"
     directory: "{{home}}/newslynx-app/"
-    logdir: "{{home}}/logs"
-    numprocs: 1
-    user: root
+    logfile: "{{home}}/logs/app.log"
 
+# broker via nginx.
 - include: nginx.yaml
   vars:
     port: "{{app_port}}"

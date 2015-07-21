@@ -1,0 +1,12 @@
+---
+- name: "install forever (to run Node.js app)."
+  npm: name=forever global=yes state=latest
+
+- name: "check if the app is running."
+  command: forever list
+  register: forever_list
+  changed_when: false
+
+- name: "Start {{exec}} with forever."
+  command: 'forever start -c "{{exec}}" -l  {{logfile}} -a {{directory}}'
+  when: "forever_list.stdout.find('{{exec}}') == -1"
