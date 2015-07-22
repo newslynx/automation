@@ -28,7 +28,7 @@ sudo su
 And then:
 ```
 cd /opt/newslynx/
-``
+````
 
 To navigate to where the applications are located.  
 
