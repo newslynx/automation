@@ -1,13 +1,15 @@
 newslynx-automation
 ===================
 
-An ansible playbook + Vagrant image for automating a `newslynx-core` install.
+An ansible playbook + Vagrant image for automating a full install with `newslynx-core` and `newslynx-app`.
 
 ## Getting Started
 
 You'll need to first install [`virtualbox`](https://www.virtualbox.org/wiki/Downloads), [`vagrant`](https://www.vagrantup.com/), and [`ansible`](http://docs.ansible.com/).
 
-Once these are installed you can provision a VM on newslynx by running:
+Rename `config.sample.yaml` to `config.yaml` and fill out the necessary information.
+
+Next, you can provision a VM on newslynx by running:
 
 ```
 vagrant up
