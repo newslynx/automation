@@ -49,7 +49,11 @@ To check the logs of running processes, type:
 tail -n 100 logs/app.log
 ```
 
-If you should like to re-run the ansible playbook without fully destroying the Virtual Machine, run `vagrant provision`.
+If you should like to re-run the ansible playbook without fully destroying the Virtual Machine, run:
+
+```
+vagrant provision
+```
 
 If you have any problems with this process, please report an issue to our [opportunity tracker](https://github.com/newslynx/opportunities/issues).
 
