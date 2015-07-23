@@ -38,9 +38,10 @@ sudo su
 ```
 
 And then:
+
 ```
 cd /opt/newslynx/
-``
+```
 
 To check the logs of running processes, type:
 
