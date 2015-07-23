@@ -28,12 +28,11 @@
     chdir: "{{home}}/newslynx-app"
   sudo: yes
 
-# start with forever
-- include: forever.yaml 
-  vars: 
-    exec: "/usr/local/bin/npm start"
-    directory: "{{home}}/newslynx-app/"
-    logfile: "{{home}}/logs/app.log"
+- name: start app 
+  command: "npm run start-automation"
+  args:
+    chdir: "{{home}}/newslynx-app"
+  sudo: yes
 
 # broker via nginx.
 - include: nginx.yaml
