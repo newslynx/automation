@@ -64,7 +64,7 @@ If you have any problems with this process, please report an issue to our [oppor
 
 When you run `vagrant up`, the following steps are executed:
 
-1. A virtual machine is provisioned. The specs of this machine are include in [`servers.json`](servers.json).
+1. A virtual machine is provisioned. The specs of this machine are included in [`servers.json`](servers.json).
 2. The ansible ["playbook"](provisioning/main.yaml), or list of all of newslynx's required roles, is executed on the Virtual Machine.
 3. If all goes well, `newslynx-core` and `newslynx-app` will start up within the Virtual Machine on Ports 5000 and 3000, respectively. These will be forwarded to your local machine on ports 3001 and 5001. 
 
