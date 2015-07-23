@@ -9,7 +9,6 @@
     - vars/newslynx-app.yaml
     - vars/postgres.yaml
 
-  # install postgres and postgis, mount a disk, change the data directory
   tasks:
     # Common.
     - name: Install common apt packages
