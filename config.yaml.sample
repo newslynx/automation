@@ -12,6 +12,7 @@ super_user_password: admin
 super_user_apikey: mj
 super_user_org: 'admin'
 super_user_org_timezone: UTC
+https: true
 
 # Secret keys
 secret_key: changeme1
