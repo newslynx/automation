@@ -45,6 +45,8 @@ vagrant box add dummy https://github.com/newslynx/vagrant-aws/raw/master/dummy.b
 
 Next, save [`secrets.yaml.sample`](secrets.yaml.sample) as `secrets.yaml` and insert your AWS credentials. Now, open up [`servers.yaml`](servers.yaml) and configure the options under `aws`. For more details on these options, refer to the [AWS Docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html). 
 
+The default ami, `ami-d05e75b8` is the basic Ubuntu 14.04 amd64 image. 
+
 Once these are set, provision your EC2 box with the following command:
 
 ```
