@@ -40,7 +40,7 @@ To deploy an AWS instance, you first need to install the the `vagrant` AWS plugi
 
 ```
 vagrant plugin install vagrant-aws
-vagrant box add dummy https://github.com/newslynx/vagrant-aws/raw/master/dummy.box
+vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 ```
 
 Next, save [`secrets.yaml.sample`](secrets.yaml.sample) as `secrets.yaml` and insert your AWS credentials. Now, open up [`servers.yaml`](servers.yaml) and configure the options under `aws`. For more details on these options, refer to the [AWS Docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html). 
