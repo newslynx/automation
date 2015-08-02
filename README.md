@@ -23,6 +23,43 @@ The app will be running at [http://localhost:3001](http://localhost:3001).  You'
 
 For more information on what to do next, please refer to our [getting started docs](http://newslynx.readthedocs.org/en/latest/getting-started.html).
 
+## AWS
+
+To deploy an AWS instance, you first need to install the the `vagrant` AWS plugin and dummy box:
+
+```
+vagrant plugin install vagrant-aws
+vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
+```
+
+Next, save [`secrets.yaml.sample`](secrets.yaml.sample) as `secrets.yaml` and insert your AWS credentials. Now, open up [`servers.yaml`](servers.yaml) and configure the options under `aws`. For more details on these options, refer to the [AWS Docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html). 
+
+Once these are set, you should be able to provision NewsLynx on AWS with the following command:
+
+```
+vagrant up --provider=aws
+```
+
+This will execute the ansible-playbook located in [`provisioning/main.yaml`](provisioning/main.yaml). This will take about 20-30 minutes to download all the dependencies and configure the machine.  Once it is finished you should be able to login to the machine with the following command:
+
+```
+vagrant ssh
+```
+
+You can now check the public IP of the box by running:
+
+```
+curl http://icanhazip.com
+```
+
+If you copy the output of this command and paste it into a browser, you should be directed to a login page for NewsLynx. 
+
+You can also query the API on port `5000` of this same address:
+
+```
+curl http://<ec2-address>:5000/api/v1/me 
+```
+
 ## Debugging 
 
 If something goes wrong with the deployment (which you should see in the logs), you can log into the VM using the following command:
@@ -64,15 +101,15 @@ If you have any problems with this process, please report an issue to our [oppor
 
 When you run `vagrant up`, the following steps are executed:
 
-1. A virtual machine is provisioned. The specs of this machine are included in [`servers.json`](servers.json).
+1. A virtual machine is provisioned. The specs of this machine are included in [`servers.yaml`](servers.yaml).
 2. The ansible ["playbook"](provisioning/main.yaml), or list of all of newslynx's required roles, is executed on the Virtual Machine.
-3. If all goes well, `newslynx-core` and `newslynx-app` will start up within the Virtual Machine on Ports 5000 and 3000, respectively. These will be forwarded to your local machine on ports 3001 and 5001. 
+3. If all goes well, `newslynx-core` and `newslynx-app` will start up within the Virtual Machine on ports `5000`and `3000`, respectively. These will be forwarded to your local machine on ports `3001` and `5001`. 
 
 ## Colophon
 
 - Ubuntu 14.0.4 (The operating system.)
 - Python 2.7.6 (The langauge `newslynx-core` is written in.)
-- Node 0.12 (The language `newslynx-app` is writtern in.)
+- Node 0.12 (The language `newslynx-app` is written in.)
 - Postgres 9.3 (`newslynx-core`'s primary datastore.)
 - Redis 2.8.4 (`newslynx-core`'s caching layer and task queue.)
 - Supervisor (`newslynx-core`'s dameon manager.)

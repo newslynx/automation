@@ -1,0 +1,20 @@
+virtualbox:
+    box: trusty64
+    box_url: "https://vagrantcloud.com/ubuntu/boxes/trusty64/versions/14.04/providers/virtualbox.box"
+    ram: 8096
+    cpu: 4
+    pg_mnt:
+        path: ./tmp/pg_mnt.vdi
+        size: 524288
+        storagectl: SATAController
+        port: 1
+        device: 0
+        type: hdd
+aws:
+    keypair_name: newslynx
+    region: us-east-1
+    ami: ami-d05e75b8
+    instance_type: t2.micro
+    ssh_username: ubuntu
+    ssh_private_key_path: /Users/brianabelson/.ssh/newslynx.pem
+    ebs_size: 10
