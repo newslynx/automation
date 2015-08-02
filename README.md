@@ -112,7 +112,7 @@ When you run `vagrant up`, the following steps are executed:
 - Node 0.12 (The language `newslynx-app` is written in.)
 - Postgres 9.3 (`newslynx-core`'s primary datastore.)
 - Redis 2.8.4 (`newslynx-core`'s caching layer and task queue.)
-- Supervisor (`newslynx-core`'s dameon manager.)
+- Supervisor (`newslynx-core`'s daemeon manager.)
 - Forever (`newslynx-app`s daemon manager.)
 - Nginx (The proxy server that sits in front of `newslynx-app` and the rest of the world.)
 
