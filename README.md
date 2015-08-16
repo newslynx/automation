@@ -12,6 +12,8 @@ You can automate the NewsLynx Installation in one of two ways
 
 For both options you must first install [`vagrant`](https://www.vagrantup.com/) and [`ansible`](http://docs.ansible.com/). Each option has other dependencies that will be covered below.
 
+These installers are fairly straightforward if you're on Mac OS X. If you're installing from a Linux command-line, such as if you're deploying from an EC2 machine, see our [Vagrant and Ansible Linux EC2](EC2-LINUX-INSTALL-GUIDE.md) install guide.
+
 Next, you should rename [`config.yaml.sample`](config.yaml.sample) to `config.yaml` and fill it out according to your preferences.  For more information on how this file is structured, refer to the [configuration docs](http://newslynx.readthedocs.org/en/latest/config.html).
 
 ## Provisioning locally 
@@ -36,7 +38,7 @@ For more information on what to do next, please refer to our [getting started do
 
 ## Provisioning on AWS 
 
-To deploy an AWS instance, you first need to install the the `vagrant` AWS plugin and dummy box:
+To deploy an AWS instance, you first need to install the `vagrant` AWS plugin and dummy box:
 
 ```
 vagrant plugin install vagrant-aws
