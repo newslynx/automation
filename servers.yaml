@@ -11,10 +11,8 @@ virtualbox:
         device: 0
         type: hdd
 aws:
-    keypair_name: newslynx
     region: us-east-1
     ami: ami-d05e75b8
     instance_type: m3.medium
     ssh_username: ubuntu
-    ssh_private_key_path: path/to/newslynx-aws.pem
-    ebs_size: 10 // GB
+    ebs_size: 10 # 10 gb

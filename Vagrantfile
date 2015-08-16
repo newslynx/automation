@@ -56,7 +56,7 @@ Vagrant.configure("2") do |config|
       override.vm.synced_folder ".", "/vagrant", disabled: true
       aws.access_key_id = secrets['aws_access_key_id']
       aws.secret_access_key = secrets['aws_secret_access_key']
-      aws.keypair_name = aws_conf['keypair_name']
+      aws.keypair_name = secrets['keypair_name']
       aws.region = aws_conf['region']
       aws.elastic_ip = true
       aws.ami = aws_conf['ami']
@@ -68,7 +68,7 @@ Vagrant.configure("2") do |config|
       }
 
       override.ssh.username = aws_conf['ssh_username']
-      override.ssh.private_key_path = aws_conf['ssh_private_key_path']
+      override.ssh.private_key_path = secrets['ssh_private_key_path']
     end
 
     machine.vm.provision "ansible" do |ansible|
