@@ -16,5 +16,5 @@ aws:
     ami: ami-d05e75b8
     instance_type: t2.micro
     ssh_username: ubuntu
-    ssh_private_key_path: /Users/brianabelson/.ssh/newslynx.pem
+    ssh_private_key_path: path/to/newslynx-aws.pem
     ebs_size: 10
