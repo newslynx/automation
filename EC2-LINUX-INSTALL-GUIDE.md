@@ -3,12 +3,15 @@ EC2 Linux Install Guide
 
 If you want to provision from an Amazon EC2 instance instead of using your local machine, here are the instructions to install Vagrant and Ansible.
 
+Before doing any of the following, update your packages listing:
+
+````shell
+sudo apt-get update
+````
+
 ## Downloading the Automation repo
 
 ````shell
-# Update your package listing
-sudo apt-get update
-
 # Install git
 sudo apt-get install git
 
