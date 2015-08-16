@@ -15,4 +15,4 @@ aws:
     ami: ami-d05e75b8
     instance_type: m3.medium
     ssh_username: ubuntu
-    ebs_size: 10 # 10 gb
+    ebs_size: 10 # GB
