@@ -59,3 +59,11 @@ sudo apt-get install ansible
 ````
 
 Hurray!
+
+## Setting permissions
+
+As a part of this process, you need to put your Amazon `.pem` file onto the AWS machine you're deploying from. This is the file whose path you set in [`servers.yaml`](https://github.com/newslynx/automation/blob/master/secrets.yaml.sample#L4). Importantly, only the super user can have read permissions to this file. To do this, run the following command on that file
+
+````
+chmod +r 400
+````
