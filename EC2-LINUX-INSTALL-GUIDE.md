@@ -21,7 +21,7 @@ git clone https://github.com/newslynx/automation
 
 ## Installing Vagrant
 
-These instructions are come in part from [Digital Ocean's guide](https://www.digitalocean.com/community/tutorials/how-to-install-vagrant-on-a-vps-running-ubuntu-12-04).
+These instructions come in part from [Digital Ocean's guide](https://www.digitalocean.com/community/tutorials/how-to-install-vagrant-on-a-vps-running-ubuntu-12-04).
 
 **Note:** The Digital Ocean Guide also covers installing VirtualBox but we haven't fully tested that method. Use the instructions below for provisioning to another AWS instance, which is the better strategy in any event.
 
