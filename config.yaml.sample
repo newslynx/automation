@@ -16,7 +16,7 @@ https: true
 
 # Secret keys
 secret_key: changeme1
-newslynx_app_secret_key: changeme2
+app_secret_key: changeme2
 
 # Database curations
 sqlalchemy_pool_size: 1000
