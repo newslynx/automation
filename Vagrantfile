@@ -18,6 +18,7 @@ Vagrant.configure("2") do |config|
   config.vm.box_url = vb_conf['box_url']
   config.vm.network "forwarded_port", guest: 5000, host: 5001
   config.vm.network "forwarded_port", guest: 80, host: 3001
+  
   config.vm.network "forwarded_port", guest: 5432, host: 2345
   config.vm.define "newslynx" do |machine|
     machine.vm.provider :virtualbox do |v|  
