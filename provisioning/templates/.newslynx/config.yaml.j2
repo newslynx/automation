@@ -123,20 +123,20 @@ scheduler_reset_pause_range: {{conf.scheduler_reset_pause_range}}
 {% endif %}
 
 # browser
-{% if conf.browser_user_agent is defined %}
-browser_user_agent: {{conf.browser_user_agent}}
+{% if conf.network_user_agent is defined %}
+network_user_agent: {{conf.network_user_agent}}
 {% endif %}
-{% if conf.browser_timeout is defined %}
-browser_timeout: {{conf.browser_timeout}}
+{% if conf.network_timeout is defined %}
+network_timeout: {{conf.network_timeout}}
 {% endif %}
-{% if conf.browser_wait is defined %}
-browser_wait: {{conf.browser_wait}}
+{% if conf.network_wait is defined %}
+network_wait: {{conf.network_wait}}
 {% endif %}
-{% if conf.browser_backoff is defined %}
-browser_backoff: {{conf.browser_backoff}}
+{% if conf.network_backoff is defined %}
+network_backoff: {{conf.network_backoff}}
 {% endif %}
-{% if conf.browser_max_retries is defined %}
-browser_max_retries: {{conf.browser_max_retries}}
+{% if conf.network_max_retries is defined %}
+network_max_retries: {{conf.network_max_retries}}
 {% endif %}
 
 {% if conf.pandoc_path is defined %}
