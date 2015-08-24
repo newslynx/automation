@@ -1,11 +1,5 @@
 core_branch: master
 
-# newslynx repos
-sous_chef_modules: []
-
-# include default tags + recipes?
-incl_defaults: true
-
 # supervisor configurations 
 api_port: 5000
 api_workers: 4 
