@@ -47,7 +47,7 @@ vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.
 
 Next, save [`secrets.yaml.sample`](secrets.yaml.sample) as `secrets.yaml` and insert your AWS credentials. Now, open up [`servers.yaml`](servers.yaml) and configure the options under `aws`. For more details on these options, refer to the [AWS Docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html). 
 
-The default ami, `ami-d05e75b8` is the basic Ubuntu 14.04 amd64 image. 
+The default ami, `ami-d05e75b8` is the basic Ubuntu 14.04 amd64 image for the us-east-1 region. You will have to change this if you are deploying to another region. To find out what you should change it to, visit the AWS "Launch an EC2 instance" page, scroll down to the Ubuntu 14.04 image and copy its AMI id. 
 
 Once these are set, provision your EC2 box with the following command:
 
@@ -58,6 +58,8 @@ vagrant up --provider=aws
 This will execute the ansible-playbook located in [`provisioning/main.yaml`](provisioning/main.yaml). This will take about 20-30 minutes to download all the dependencies and configure the machine.
 
 Get the url of your EC2 machine and visit the app at `http://<ec2-url>.com:3000`.
+
+**NOTE** If you get an error saying that the "Elastic IP could not be provisioned" it means that you have too many IP addresses already allocated to your AWS account. You can remove them by going to the "Elastic IP" panel in your EC2 dashboard and removing them.
 
 ## Operations
 
