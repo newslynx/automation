@@ -54,6 +54,10 @@
   file: "state=directory path=~/.newslynx/defaults mode=0700"
   sudo: yes
 
+- name: ensure the dot newslynx sous-chefs directory exists
+  file: "state=directory path=~/.newslynx/sous-chefs mode=0700"
+  sudo: yes
+
 # - name: Create default tags and recipes.
 #   template: 
 #   args:
@@ -65,8 +69,8 @@
 #     - recipes 
 #   sudo: yes
 
-- name: initialize newslynx database.
-  command: "/usr/local/bin/newslynx init --app-defaults"
+- name: initialize newslynx with application defaults.
+  command: "/usr/local/bin/newslynx init"
   sudo: yes 
   args:
     chdir: "{{home}}/newslynx-core/"

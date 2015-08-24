@@ -18,6 +18,13 @@ super_user_apikey: {{conf.super_user_apikey}}
 # new organization.
 default_recipes: ~/.newslynx/defaults/recipes.yaml
 default_tags: ~/.newslynx/defaults/tags.yaml
+sous_chefs_dir: ~/.newslynx/sous-chefs/
+{% if conf.default_sous_chefs is defined %}
+default_sous_chefs:
+{% for sc in conf.default_sous_chefs %}
+- {{ sc }}
+{% endfor %}
+{% endif %}
 
 # API curations #
 {% if conf.api_url is defined %}
