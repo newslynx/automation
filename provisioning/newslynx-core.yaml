@@ -58,19 +58,8 @@
   file: "state=directory path=~/.newslynx/sous-chefs mode=0700"
   sudo: yes
 
-# - name: Create default tags and recipes.
-#   template: 
-#   args:
-#     src: "templates/.newslynx/defaults/{{item}}.yaml.j2"
-#     dest: "~/.newslynx/defaults/{{item}}.yaml"
-#     mode: 0700
-#   with_items:
-#     - tags 
-#     - recipes 
-#   sudo: yes
-
 - name: initialize newslynx with application defaults.
-  command: "/usr/local/bin/newslynx init"
+  command: make app_install
   sudo: yes 
   args:
     chdir: "{{home}}/newslynx-core/"
