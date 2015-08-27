@@ -1,0 +1,40 @@
+---
+# - include: node.yaml
+
+- name: checkout branch
+  command: "git checkout {{app_branch}}"
+  args:
+    chdir: "{{home}}/newslynx-app/"
+  ignore_errors: yes
+  sudo: yes
+
+- name: pull
+  command: "git pull origin {{app_branch}}"
+  args:
+    chdir: "{{home}}/newslynx-app/"
+  sudo: yes
+  ignore_errors: yes
+
+- name: install app dependencies
+  command: sudo npm install 
+  args:
+    chdir: "{{home}}/newslynx-app"
+  sudo: yes
+
+- name: restart app 
+  command: "npm run forever-restart"
+  args:
+    chdir: "{{home}}/newslynx-app"
+  sudo: yes
+
+# broker via nginx.
+# - include: nginx.yaml
+#   vars:
+#     port: "{{app_port}}"
+#     host: "{{app_host}}"
+#     log_file: "{{home}}/logs/access.log"
+#     worker_connections: "{{app_nginx_worker_connections}}"
+#     worker_processes: "{{app_nginx_worker_processes}}"
+
+
+
