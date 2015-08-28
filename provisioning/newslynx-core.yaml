@@ -9,10 +9,13 @@
     - libxslt1-dev
     - libffi-dev 
     - postgresql-plpython
-    - python-pip
     - python-dev
     - python-setuptools
     - pandoc
+  sudo: yes
+
+- name: install pip.
+  command: easy_install pip
   sudo: yes
 
 - name: clone newslynx-core to remote server
@@ -28,12 +31,6 @@
 
 - name: pull
   command: "git pull origin {{core_branch}}"
-  args:
-    chdir: "{{home}}/newslynx-core/"
-  sudo: yes
-
-- name: install newslynx-core
-  pip: name="."
   args:
     chdir: "{{home}}/newslynx-core/"
   sudo: yes

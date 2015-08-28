@@ -22,8 +22,8 @@ For a local setup, install [`virtualbox`](https://www.virtualbox.org/wiki/Downlo
 
 One you've done that, run the following command:
 
-```
-vagrant up
+```shell
+$ make vb_init
 ``` 
 
 This will execute the ansible-playbook located in [`provisioning/main.yaml`](provisioning/main.yaml). This will take about 20-30 minutes to download all the dependencies and configure the machine.  Once it is finished you should be able to access the Newslynx API on your local machine on port `5001`:

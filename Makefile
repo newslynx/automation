@@ -1,11 +1,34 @@
 
-tail:
+# VIRTUALBOX # 
+
+vb_init:
+
+	make -s vb_stop
+	vagrant up --provider=virtualbox
+
+vb_stop:
+
+	-vagrant destroy --force > /dev/null
+
+vb_update:
+
+	echo '' > /dev/null
+
+vb_tail:
 	# tail the logs of a process.
 	vagrant ssh -c 'sudo tail -f /opt/newslynx/logs/$(p).log'
 
-dev:
 
-	ansible-playbook --tags dev \
-	    -i .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory \
-	    --private-key="~/.vagrant.d/insecure_private_key" \
-	    -e "ansible_ssh_user=vagrant hostname=newslynx" provisioning/main.yaml
+# AWS #
+
+aws_init:
+
+	-vagrant up --provider=aws
+
+aws_stop:
+
+	-vagrant destroy --provider=aws --force > /dev/null
+
+aws_update:
+
+	echo '' > /dev/null
