@@ -1,5 +1,7 @@
 ---
 
+# CORE #
+
 - name: pull newslynx-core
   command: "git pull origin {{app_branch}}"
   args:
@@ -7,58 +9,47 @@
   sudo: yes
   ignore_errors: yes
 
-- name: restart supervisor
-  service: name=supervisor state=restarted
-
-- name: restart supervisor
-  service: name=supervisor state=restarted
-
-- name: restart nginx
-  service: name=nginx state=restarted
-
-
-- name: ensure the pg mount directory EXISTS
-  file: "state=directory path={{pg_mnt_point}} mode=0700 owner=postgres group=postgres"
-
-- name: stop postgres
-  action: service name=postgresql state=stopped
-
-- name: create a ext4 filesystem if a mounted drive is specified
-  command: "mkfs.ext4 -F {{pg_mnt_path}}"
-  ignore_errors: yes
-
-- name: mount a drive if specified
-  mount: "name={{pg_mnt_point}} src={{pg_mnt_path}} fstype=ext4 state=mounted"
-  ignore_errors: yes
-
-- name: ensure the postgres data directory exists
-  file: "state=directory path={{pg_dir}} mode=0700 owner=postgres group=postgres"
-
-- name: change the data directory to a mounted drive in pgconf
-  lineinfile: dest={{pg_conf}} state=present regexp="^data_directory" line="data_directory=\'{{pg_dir}}\'"
-
-- name: change the data directory to a mounted drive in pgconf
-  lineinfile: dest={{pg_conf}} state=present regexp="^data_directory" line="data_directory=\'{{pg_dir}}\'"
-  when: pg_mnt
-
-- name: reconfigure the db with the new data directory
-  command: "/usr/lib/postgresql/9.3/bin/initdb -D {{pg_dir}}"
+- name: update configurations template
+  template: 
+  args:
+    src: "templates/.newslynx/config.yaml.j2"
+    dest: "~/.newslynx/config.yaml"
+    mode: 0700
   sudo: yes
-  sudo_user: postgres
-  ignore_errors: yes
 
-- name: restart postgres
-  action: service name=postgresql state=started
+- name: update newslynx-core
+  command: make app_install 
+  args:
+    chdir: "{{home}}/newslynx-core/"
 
-- name: set postgres password
-  command: psql -d postgres -U postgres -c "ALTER USER postgres with password '{{pg_password}}'"
+# APP #
+
+- name: pull newslynx-app
+  command: "git pull origin {{app_branch}}"
+  args:
+    chdir: "{{home}}/newslynx-app/"
   sudo: yes
-  sudo_user: postgres
   ignore_errors: yes
 
-- name: create newslynx db
-  command: "psql -d postgres -U postgres -c 'CREATE DATABASE {{pg_name}}'"
+- name: update newslynx-app dependencies
+  command: sudo npm install 
+  args:
+    chdir: "{{home}}/newslynx-app"
   sudo: yes
-  sudo_user: postgres
-  ignore_errors: yes
 
+- name: restart app 
+  command: "npm run forever-restart"
+  args:
+    chdir: "{{home}}/newslynx-app"
+  sudo: yes
+
+
+# RESTART #
+
+- name: restart services
+  service: name=postgresql state=restarted
+  with_items:
+    - redis 
+    - postgresql 
+    - supervisor 
+    - nginx

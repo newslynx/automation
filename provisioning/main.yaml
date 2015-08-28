@@ -10,6 +10,7 @@
     - vars/postgres.yaml
 
   tasks:
+
     # Common.
     - name: Install common apt packages
       apt: name={{item}} state=present update_cache=yes
@@ -21,11 +22,26 @@
         - jq
         - ansible
       sudo: yes
+      tags: 
+        - init 
 
     - name: ensure the root directory exists
       file: "state=directory path={{home}} mode=0700"
+      tags: 
+        - init 
 
     # Roles
     - include: newslynx-core.yaml
+      tags: 
+        - init 
+
     - include: newslynx-app.yaml
+      tags:
+        - init
+
+    # # lightweight update + restart
+    # - include: update.yaml 
+    #   tags:
+    #     - update
+
 

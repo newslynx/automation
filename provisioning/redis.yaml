@@ -4,4 +4,4 @@
   with_items:
     - redis-server
 
-- service: name=redis-server state=started
+- service: name=redis-server state=restarted
