@@ -10,6 +10,7 @@ virtualbox:
         port: 1
         device: 0
         type: hdd
+
 aws:
     region: us-east-1
     ami: ami-d05e75b8 # This is the basic Ubuntu 14.04 version for us-east-1. AMIs are region dependent. If you are in US West 1 (Oregon), use ami-5189a661. For other regions go to your AWS EC2 launch page and copy the AMI ID of the Ubuntu 14.04 image.

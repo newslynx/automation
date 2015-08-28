@@ -9,6 +9,11 @@
   sudo: yes
   ignore_errors: yes
 
+- name: clear out config 
+  command: rm -rf ~/.newslynx/config.yaml 
+  ignore_errors: yes
+  sudo: yes
+
 - name: update configurations template
   template: 
   args:

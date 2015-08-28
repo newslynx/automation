@@ -18,6 +18,8 @@ Next, you should rename [`config.yaml.sample`](config.yaml.sample) to `config.ya
 
 ## Provisioning locally 
 
+### Starting the virutalbox
+
 For a local setup, install [`virtualbox`](https://www.virtualbox.org/wiki/Downloads).
 
 One you've done that, run the following command:
@@ -28,15 +30,17 @@ $ make vb_init
 
 This will execute the ansible-playbook located in [`provisioning/main.yaml`](provisioning/main.yaml). This will take about 20-30 minutes to download all the dependencies and configure the machine.  Once it is finished you should be able to access the Newslynx API on your local machine on port `5001`:
 
-```
-curl http://localhost:5001/api/v1/me\?apikey=<your-apikey>
+```shell
+$ curl http://localhost:5001/api/v1/me\?apikey=<your-apikey>
 ```
 
 The app will be running at [http://localhost:3001](http://localhost:3001).  You'll be able to login with the `super_user_email` and `super_user_password` that you set in in `config.yaml`.
 
-For more information on what to do next, please refer to our [getting started docs](http://newslynx.readthedocs.org/en/latest/getting-started.html).
+For more information on what to do next, please refer to our [getting started docs](http://newslynx.readthedocs.org/en/latest/starting-the-api-and-app.html).
 
 ## Provisioning on AWS 
+
+### Starting the EC2-instance
 
 To deploy an AWS instance, you first need to install the `vagrant` AWS plugin and dummy box:
 
@@ -45,14 +49,14 @@ vagrant plugin install vagrant-aws
 vagrant box add dummy https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box
 ```
 
-Next, save [`secrets.yaml.sample`](secrets.yaml.sample) as `secrets.yaml` and insert your AWS credentials. Now, open up [`servers.yaml`](servers.yaml) and configure the options under `aws`. For more details on these options, refer to the [AWS Docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html). 
+Next, save [`secrets.yaml.sample`](secrets.yaml.sample) as `secrets.yaml` and insert your AWS credentials. Now, open up [`machines.yaml`](machines.yaml) and configure the options under `aws`. For more details on these options, refer to the [AWS Docs](http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/concepts.html). 
 
 The default ami, `ami-d05e75b8` is the basic Ubuntu 14.04 amd64 image for the us-east-1 region. You will have to change this if you are deploying to another region. To find out what you should change it to, visit the AWS "Launch an EC2 instance" page, scroll down to the Ubuntu 14.04 image and copy its AMI id. 
 
 Once these are set, provision your EC2 box with the following command:
 
-```
-vagrant up --provider=aws
+```shell
+$ make aws_init
 ```
 
 This will execute the ansible-playbook located in [`provisioning/main.yaml`](provisioning/main.yaml). This will take about 20-30 minutes to download all the dependencies and configure the machine.
@@ -66,13 +70,13 @@ Get the url of your EC2 machine and visit the app at `http://<ec2-url>.com:3000`
 Once your machine is provisioned, in either setup, login with the following command:
 
 ```
-vagrant ssh
+$ vagrant ssh
 ```
 
 You can now check the public IP of the box by running:
 
 ```
-curl http://icanhazip.com
+$ curl http://icanhazip.com
 ```
 
 If you copy the output of this command and paste it into a browser, you should be directed to a login page for NewsLynx. 
@@ -80,7 +84,7 @@ If you copy the output of this command and paste it into a browser, you should b
 You can also query the API on port `5000` of this same address:
 
 ```
-curl http://<newslynx-location>:5000/api/v1/me 
+$ curl http://<newslynx-location>:5000/api/v1/me 
 ```
 
 ## Debugging 
@@ -126,7 +130,7 @@ If you have any problems with this process, please report an issue to our [oppor
 
 When you run `vagrant up`, the following steps are executed:
 
-1. A virtual machine is provisioned. The specs of this machine are included in [`servers.yaml`](servers.yaml).
+1. A virtual machine is provisioned. The specs of this machine are included in [`machines.yaml`](machines.yaml).
 2. The ansible ["playbook"](provisioning/main.yaml), or list of all of newslynx's required roles, is executed on the Virtual Machine.
 3. If all goes well, `newslynx-core` and `newslynx-app` will start up within the Virtual Machine on ports `5000`and `3000`, respectively. These will be forwarded to your local machine on ports `3001` and `5001`. On AWS, they will remain `5000` and `3000`.
 

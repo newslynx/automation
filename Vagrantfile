@@ -5,10 +5,10 @@ require 'yaml'
 # read in config.yaml
 conf = YAML::load(File.open('./config.yaml'))
 
-# read servers definitions
-servers = YAML::load(File.open('./servers.yaml'))
-vb_conf = servers["virtualbox"]
-aws_conf = servers["aws"]
+# read machine definitions
+machines = YAML::load(File.open('./machines.yaml'))
+vb_conf = machines["virtualbox"]
+aws_conf = machines["aws"]
 
 # secrets definitions
 secrets = YAML::load(File.open('./secrets.yaml'))
