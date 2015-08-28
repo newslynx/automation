@@ -14,7 +14,7 @@
     - pandoc
   sudo: yes
 
-- name: install pip.
+- name: install pip
   command: easy_install pip
   sudo: yes
 
@@ -23,23 +23,23 @@
      dest={{home}}/newslynx-core
      accept_hostkey=true
 
-- name: checkout the branch.
+- name: checkout the master branch of newslynx-core
   command: "git checkout {{core_branch}}"
   args:
     chdir: "{{home}}/newslynx-core/"
   ignore_errors: yes
 
-- name: pull
+- name: pull newslynx-core
   command: "git pull origin {{core_branch}}"
   args:
     chdir: "{{home}}/newslynx-core/"
   sudo: yes
 
-- name: ensure the dot newslynx directory EXISTS
+- name: ensure the dot newslynx directory exists
   file: "state=directory path=~/.newslynx/ mode=0700"
   sudo: yes
 
-- name: copy config template
+- name: copy ~/.newslynx/config.yaml template
   template: 
   args:
     src: "templates/.newslynx/config.yaml.j2"
