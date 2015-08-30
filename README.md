@@ -23,7 +23,7 @@ For a local setup, install [`virtualbox`](https://www.virtualbox.org/wiki/Downlo
 One you've done that, run the following command:
 
 ```shell
-$ make vb_init
+$ make init_vb
 ``` 
 
 This will execute the ansible-playbook located in [`provisioning/main.yaml`](provisioning/main.yaml). This will take about 20-30 minutes to download all the dependencies and configure the machine.  Once it is finished you should be able to access the Newslynx API on your local machine on port `5001`:
@@ -49,11 +49,11 @@ Next, save [`secrets.yaml.sample`](secrets.yaml.sample) as `secrets.yaml` and in
 
 The default ami, `ami-d05e75b8` is the basic Ubuntu 14.04 amd64 image for the us-east-1 region. You will have to change this if you are deploying to another region. To find out what you should change it to, visit the AWS "Launch an EC2 instance" page, scroll down to the Ubuntu 14.04 image and copy its AMI id. 
 
-Once these are set, provision your EC2 box with the following command:
+Once these are set, create and provision your EC2 box with the following command:
 
-```
-vagrant up --provider=aws
-```
+```shell
+$ make init_aws
+````
 
 This will execute the ansible-playbook located in [`provisioning/main.yaml`](provisioning/main.yaml). This will take about 20-30 minutes to download all the dependencies and configure the machine.
 
@@ -62,6 +62,36 @@ Get the url of your EC2 machine and visit the app at `http://<ec2-url>.com:3000`
 **NOTE** If you get an error saying that the "Elastic IP could not be provisioned" it means that you have too many IP addresses already allocated to your AWS account. You can remove them by going to the "Elastic IP" panel in your EC2 dashboard and removing them.
 
 ## Operations
+
+For an explanation of all make commands, see the [`Makefile`](Makefile).
+
+### Updating
+
+If you want to update to the latest version of `newslynx-core` or `newslynx-app` (currently pegged to what is on GitHub), run the following
+
+````shell
+$ make update
+````
+
+### Examining logs
+
+You can quickly look up the logs of `newslynx-core` or `newslynx-api` with the following
+
+````shell
+$ make logs l=<file-name> # the log name can be access, `api`, `app`, `bulk-queue`, `cron`, or `recipe-queue`.
+````
+
+You'll then want to hit <kbd>ctrl</kbd> + <kbd>c</kbd> to exit.
+
+### Destroying
+
+To destroy your box, run the following
+
+````shell
+$ make destroy
+````
+
+### SSH
 
 Once your machine is provisioned, in either setup, login with the following command:
 
@@ -112,7 +142,7 @@ tail -n 100 logs/app.log
 If you should like to re-run the ansible playbook without fully destroying the Virtual Machine, run:
 
 ```
-vagrant provision
+vagrant provision --provision-with main
 ```
 
 ## Problems?
@@ -124,7 +154,7 @@ If you have any problems with this process, please report an issue to our [oppor
 
 `ansible` is a very fancy framework for running very ugly shell commands.  Each of the files located in [`provisioning/`](provisioning/), with the exclusion of `main.yaml`, represents an ansible "role" or a particular dependency that `newslynx` requires. These roles are fulfilled by running each of the commands listed in their respective files. Some "roles" - like [`newslynx-app`](provisioning/newslynx-app.yaml) and [`newslynx-core`](provisioning/newslynx-core.yaml) - rely on on other "roles".  These are "included" at the top of each respective file.  Most roles also require certain configuration variables which are set in [`provisioning/vars/`](provisioning/vars/).  Some of these roles also require their own configuration files.  To generate these, we create "templates" which we populate with the configuration variables.  These files are stored in [`provisioning/templates/`](provisioning/templates).
 
-When you run `vagrant up`, the following steps are executed:
+When you run the above "init" commands, the following steps are executed:
 
 1. A virtual machine is provisioned. The specs of this machine are included in [`servers.yaml`](servers.yaml).
 2. The ansible ["playbook"](provisioning/main.yaml), or list of all of newslynx's required roles, is executed on the Virtual Machine.

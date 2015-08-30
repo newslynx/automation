@@ -1,34 +1,30 @@
 
+# COMMON #
+
+update:
+	# update newslynx-core and newslynx-app
+	vagrant provision --provision-with update
+
+logs:
+	# tail the logs of a process.
+	vagrant ssh -c 'sudo tail -f /opt/newslynx/logs/$(l).log'
+
+destroy:
+	# destroy the current box
+	vagrant destroy
+
+
 # VIRTUALBOX # 
 
-vb_init:
+init_vb:
 
-	make -s vb_stop
-	vagrant up --provider=virtualbox
-
-vb_stop:
-
-	-vagrant destroy --force > /dev/null
-
-vb_update:
-
-	echo '' > /dev/null
-
-vb_tail:
-	# tail the logs of a process.
-	vagrant ssh -c 'sudo tail -f /opt/newslynx/logs/$(p).log'
+	vagrant up --provider=virtualbox --no-provision
+	vagrant provision --provision-with main
 
 
 # AWS #
 
-aws_init:
+init_aws:
 
-	-vagrant up --provider=aws
-
-aws_stop:
-
-	-vagrant destroy --provider=aws --force > /dev/null
-
-aws_update:
-
-	echo '' > /dev/null
+	vagrant up --provider=aws --no-provision
+	vagrant provision --provision-with main

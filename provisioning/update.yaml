@@ -1,55 +1,64 @@
 ---
-
-# CORE #
-
-- name: pull newslynx-core
-  command: "git pull origin {{app_branch}}"
-  args:
-    chdir: "{{home}}/newslynx-app/"
-  sudo: yes
-  ignore_errors: yes
-
-- name: update configurations template
-  template: 
-  args:
-    src: "templates/.newslynx/config.yaml.j2"
-    dest: "~/.newslynx/config.yaml"
-    mode: 0700
+- hosts: all
+  gather_facts: yes
   sudo: yes
 
-- name: update newslynx-core
-  command: make app_install 
-  args:
-    chdir: "{{home}}/newslynx-core/"
+  vars_files:
+    - vars/common.yaml
+    - vars/newslynx-core.yaml
+    - vars/newslynx-app.yaml
+    - vars/postgres.yaml
 
-# APP #
+  tasks:
 
-- name: pull newslynx-app
-  command: "git pull origin {{app_branch}}"
-  args:
-    chdir: "{{home}}/newslynx-app/"
-  sudo: yes
-  ignore_errors: yes
+    # CORE #
 
-- name: update newslynx-app dependencies
-  command: sudo npm install 
-  args:
-    chdir: "{{home}}/newslynx-app"
-  sudo: yes
+    - name: pull newslynx-core
+      command: "git pull origin {{app_branch}}"
+      args:
+        chdir: "{{home}}/newslynx-app/"
+      sudo: yes
 
-- name: restart app 
-  command: "npm run forever-restart"
-  args:
-    chdir: "{{home}}/newslynx-app"
-  sudo: yes
+    - name: update configurations template
+      template: 
+      args:
+        src: "templates/.newslynx/config.yaml.j2"
+        dest: "~/.newslynx/config.yaml"
+        mode: 0700
+      sudo: yes
+
+    - name: update newslynx-core
+      command: make app_install 
+      args:
+        chdir: "{{home}}/newslynx-core/"
+
+    # APP #
+
+    - name: pull newslynx-app
+      command: "git pull origin {{app_branch}}"
+      args:
+        chdir: "{{home}}/newslynx-app/"
+      sudo: yes
+
+    - name: update newslynx-app dependencies
+      command: sudo npm install 
+      args:
+        chdir: "{{home}}/newslynx-app"
+      sudo: yes
+
+    - name: restart app 
+      command: "npm run forever-restart"
+      args:
+        chdir: "{{home}}/newslynx-app"
+      sudo: yes
 
 
-# RESTART #
+    # RESTART #
 
-- name: restart services
-  service: name=postgresql state=restarted
-  with_items:
-    - redis 
-    - postgresql 
-    - supervisor 
-    - nginx
+    - name: restart services
+      service: name=postgresql state=restarted
+      with_items:
+        - redis 
+        - postgresql 
+        - supervisor 
+        - nginx
