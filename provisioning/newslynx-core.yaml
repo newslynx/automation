@@ -8,7 +8,7 @@
     - libxml2-dev
     - libxslt1-dev
     - libffi-dev 
-    - postgresql-plpython
+    - postgresql-plpython-9.3
     - python-dev
     - python-setuptools
     - pandoc

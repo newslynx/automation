@@ -1,0 +1,19 @@
+sudo: required
+
+language: python
+
+python:
+  - "2.7"
+
+before_install:
+  - sudo apt-get update -qq
+  - sudo apt-get install -qq python-apt python-pycurl
+  - pip install --upgrade pip
+
+install:
+  - pip install ansible
+  - ansible --version
+
+script:
+  - ansible-playbook -i tests/inventory --syntax-check --list-tasks provisioning/main.yaml
+  - ansible-playbook -i tests/inventory --connection=local --sudo -vvvv provisioning/main.yaml

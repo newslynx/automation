@@ -72,9 +72,19 @@ Vagrant.configure("2") do |config|
       override.ssh.private_key_path = secrets['ssh_private_key_path']
     end
 
-    machine.vm.provision "ansible" do |ansible|
+    machine.vm.provision "main", type: "ansible" do |ansible|
       ansible.extra_vars = { ansible_ssh_user: "vagrant", hostname: "newslynx"}
       ansible.playbook = "provisioning/main.yaml"
+      ansible.verbose = "vvvv"
+      ansible.extra_vars = {
+        pg_mnt_path: "/dev/sda1",
+        conf: conf 
+      }
+    end
+
+    machine.vm.provision "update", type: "ansible" do |ansible|
+      ansible.extra_vars = { ansible_ssh_user: "vagrant", hostname: "newslynx"}
+      ansible.playbook = "provisioning/update.yaml"
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
         pg_mnt_path: "/dev/sda1",
