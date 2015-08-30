@@ -11,37 +11,22 @@
 
   tasks:
 
-    # # Common.
-    # - name: Install common apt packages
-    #   apt: name={{item}} state=present update_cache=yes
-    #   with_items:
-    #     - git
-    #     - gcc 
-    #     - supervisor
-    #     - htop
-    #     - jq
-    #     - ansible
-    #   sudo: yes
-    #   tags: 
-    #     - init 
+    # Common.
+    - name: Install common apt packages
+      apt: name={{item}} state=present update_cache=yes
+      with_items:
+        - git
+        - gcc 
+        - supervisor
+        - htop
+        - jq
+        - ansible
+      sudo: yes
 
-    # - name: ensure the root directory exists
-    #   file: "state=directory path={{home}} mode=0700"
-    #   tags: 
-    #     - init 
+    - name: ensure the root directory exists
+      file: "state=directory path={{home}} mode=0700"
 
-    # # Roles
-    # - include: newslynx-core.yaml
-    #   tags: 
-    #     - init 
-
-    # - include: newslynx-app.yaml
-    #   tags:
-    #     - init
-
-    # lightweight update + restart
-    - include: update.yaml 
-      tags:
-        - update
-
+    # Roles
+    - include: newslynx-core.yaml
+    - include: newslynx-app.yaml
 
