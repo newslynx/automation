@@ -56,7 +56,7 @@
     # RESTART #
 
     - name: restart services
-      service: name=postgresql state=restarted
+      service: name={{ item }} state=restarted
       with_items:
         - redis 
         - postgresql 
