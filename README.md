@@ -71,7 +71,7 @@ If you want to update to the latest version of `newslynx-core` or `newslynx-app`
 
 ````shell
 $ make update
-````
+```` 
 
 ### Examining logs
 
