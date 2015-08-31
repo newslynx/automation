@@ -62,7 +62,7 @@ scheduler_reset_pause_range: [20, 200]
 
 # browser
 network_user_agent: "mozilla/5.0 (macintosh; intel mac os x 10_10; rv:33.0) gecko/20100101 firefox/33.0"
-network_timeout: (7, 27)
+network_timeout: 15
 network_wait: 0.8
 network_backoff: 2
 network_max_retries: 2
