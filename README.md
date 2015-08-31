@@ -1,8 +1,6 @@
 newslynx-automation
 ===================
 
-![](https://travis-ci.org/newslynx/automation.svg)
-
 An Ansible Playbook + Vagrantfile for automating a `newslynx-core` and `newslynx-app` install.
 
 ## Getting Started
