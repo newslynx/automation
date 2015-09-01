@@ -33,7 +33,7 @@ sudo apt-get install dpkg-dev
 At the time of this writing (Aug 2015), the latest Vagrant version is 1.7.4. To check the latest, go to the [Vagrant downloads page](https://www.vagrantup.com/downloads.html). If an updated version exists, right-click on the "64-bit" link for "Linux (DEB)" and copy the download URL. Replace it with the one below in the next command.
 
 ````shell
-# Download the Vagrant installer
+# Download the Vagrant installer. Must be at least version 1.7.0
 wget https://dl.bintray.com/mitchellh/vagrant/vagrant_1.7.4_x86_64.deb
 
 # Install it

@@ -17,7 +17,7 @@ destroy:
 # VIRTUALBOX # 
 
 init_vb:
-
+	vagrant --version
 	vagrant up --provider=virtualbox --no-provision
 	vagrant provision --provision-with main
 
@@ -25,6 +25,6 @@ init_vb:
 # AWS #
 
 init_aws:
-
+	vagrant --version
 	vagrant up --provider=aws --no-provision
 	vagrant provision --provision-with main

@@ -14,6 +14,8 @@ For both options you must first install [`vagrant`](https://www.vagrantup.com/) 
 
 These installers are fairly straightforward if you're on Mac OS X. If you're installing from a Linux command-line, such as if you're deploying from an EC2 machine, see our [Vagrant and Ansible Linux EC2](EC2-LINUX-INSTALL-GUIDE.md) install guide.
 
+**Note:** At least version 1.7.0 is required for Vagrant. Tested with 1.7.4.
+
 Next, you should rename [`config.yaml.sample`](config.yaml.sample) to `config.yaml` and fill it out according to your preferences.  For more information on how this file is structured, refer to the [configuration docs](http://newslynx.readthedocs.org/en/latest/config.html).
 
 ## Provisioning locally 
