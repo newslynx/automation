@@ -13,6 +13,10 @@ destroy:
 	# destroy the current box
 	vagrant destroy
 
+reprovision:
+	# reprovision the box
+	vagrant provision --provision-with main
+
 
 # VIRTUALBOX # 
 

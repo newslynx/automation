@@ -97,6 +97,14 @@ To destroy your box, run the following
 $ make destroy
 ````
 
+### Reprovisioning
+
+To reprovision with the `main` profile. This is generally only useful if you have created the virtual machine but haven't done any installation on it. This can happen, say, if you run `make init_vb` but forgetting to put yourself in the right virtualenv so the box is created but ansible fails.
+
+````shell
+$ make reprovision
+````
+
 ### SSH
 
 Once your machine is provisioned, in either setup, login with the following command:
