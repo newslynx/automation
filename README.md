@@ -14,6 +14,8 @@ For both options you must first install the current versions of [`vagrant`](http
 
 These installers are fairly straightforward if you're on Mac OS X. If you're installing from a Linux command-line, such as if you're deploying from an EC2 machine, see our [Vagrant and Ansible Linux EC2](EC2-LINUX-INSTALL-GUIDE.md) install guide.
 
+**Note:** At least version 1.7.0 is required for Vagrant. Tested with 1.7.4.
+
 Next, you should rename [`config.yaml.sample`](config.yaml.sample) to `config.yaml` and fill it out according to your preferences.  For more information on how this file is structured, refer to the [configuration docs](http://newslynx.readthedocs.org/en/latest/config.html).
 
 ## Provisioning locally 
@@ -93,6 +95,14 @@ To destroy your box, run the following
 
 ````shell
 $ make destroy
+````
+
+### Reprovisioning
+
+To reprovision with the `main` profile. This is generally only useful if you have created the virtual machine but haven't done any installation on it. This can happen, say, if you run `make init_vb` but forgetting to put yourself in the right virtualenv so the box is created but ansible fails.
+
+````shell
+$ make reprovision
 ````
 
 ### SSH

@@ -13,11 +13,15 @@ destroy:
 	# destroy the current box
 	vagrant destroy
 
+reprovision:
+	# reprovision the box
+	vagrant provision --provision-with main
+
 
 # VIRTUALBOX # 
 
 init_vb:
-
+	vagrant --version
 	vagrant up --provider=virtualbox --no-provision
 	vagrant provision --provision-with main
 
@@ -25,6 +29,6 @@ init_vb:
 # AWS #
 
 init_aws:
-
+	vagrant --version
 	vagrant up --provider=aws --no-provision
 	vagrant provision --provision-with main
