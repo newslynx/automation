@@ -10,7 +10,7 @@ You can automate the NewsLynx Installation in one of two ways
 1. Into a virtual machine on your local computer.
 2. Onto an Amazon Web Services EC2 machine.
 
-For both options you must first install [`vagrant`](https://www.vagrantup.com/) and [`ansible`](http://docs.ansible.com/). Each option has other dependencies that will be covered below.
+For both options you must first install the current versions of [`vagrant`](https://www.vagrantup.com/) and [`ansible`](http://docs.ansible.com/). Each option has other dependencies that will be covered below.
 
 These installers are fairly straightforward if you're on Mac OS X. If you're installing from a Linux command-line, such as if you're deploying from an EC2 machine, see our [Vagrant and Ansible Linux EC2](EC2-LINUX-INSTALL-GUIDE.md) install guide.
 
