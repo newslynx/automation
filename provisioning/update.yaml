@@ -14,9 +14,9 @@
     # CORE #
 
     - name: pull newslynx-core
-      command: "git pull origin {{app_branch}}"
+      command: "git pull origin {{core_branch}}"
       args:
-        chdir: "{{home}}/newslynx-app/"
+        chdir: "{{home}}/newslynx-core/"
       sudo: yes
 
     - name: update configurations template
