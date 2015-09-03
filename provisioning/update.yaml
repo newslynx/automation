@@ -64,7 +64,6 @@
     - name: restart supervisor 
       command: "service supervisor restart"
       sudo: yes
-        - supervisor 
 
     - name: restart nginx
       service: name={{ item }} state=restarted
