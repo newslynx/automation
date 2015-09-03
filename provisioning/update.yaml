@@ -58,7 +58,7 @@
     - name: restart redis + postgresql
       service: name={{ item }} state=restarted
       with_items:
-        - redis 
+        - redis-server 
         - postgresql 
 
     - name: restart supervisor 
