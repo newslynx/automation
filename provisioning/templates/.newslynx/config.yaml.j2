@@ -30,6 +30,9 @@ api_port: {{conf.api_port}}
 {% if conf.api_version is defined %}
 api_version: {{conf.api_version}}
 {% endif %}
+{% if conf.api_dns is defined %}
+api_dns: {{conf.api_dns}}
+{% endif %}
 
 # database
 sqlalchemy_database_uri: "postgres://postgres:{{pg_password}}@localhost:5432/{{pg_name}}"
