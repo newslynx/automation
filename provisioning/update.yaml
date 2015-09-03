@@ -58,7 +58,7 @@
     - name: restart services
       service: name={{ item }} state=restarted
       with_items:
-        - redis 
+        - redis-server 
         - postgresql 
         - supervisor 
         - nginx
