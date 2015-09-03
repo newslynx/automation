@@ -59,7 +59,7 @@ Vagrant.configure("2") do |config|
       aws.secret_access_key = secrets['aws_secret_access_key']
       aws.keypair_name = secrets['keypair_name']
       aws.region = aws_conf['region']
-      aws.elastic_ip = true
+      aws.elastic_ip = aws_conf['elastic_ip']
       aws.ami = aws_conf['ami']
       aws.block_device_mapping = [{ 'DeviceName' => '/dev/sda1', 'Ebs.VolumeSize' => aws_conf['ebs_size'] }]
       aws.instance_type = aws_conf['instance_type']
