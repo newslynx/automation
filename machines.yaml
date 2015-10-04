@@ -14,7 +14,7 @@ virtualbox:
 aws:
     region: us-east-1
     ami: ami-d05e75b8 # This is the basic Ubuntu 14.04 version for us-east-1. AMIs are region dependent. If you are in US West 1 (Oregon), use ami-5189a661. For other regions go to your AWS EC2 launch page and copy the AMI ID of the Ubuntu 14.04 image.
-    instance_type: m3.medium
+    instance_type: m4.large
     ssh_username: ubuntu
     elastic_ip: true
     ebs_size: 10 # GB
