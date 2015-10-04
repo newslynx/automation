@@ -91,5 +91,15 @@ Vagrant.configure("2") do |config|
         conf: conf 
       }
     end
+
+    machine.vm.provision "restart", type: "ansible" do |ansible|
+      ansible.extra_vars = { ansible_ssh_user: "vagrant", hostname: "newslynx"}
+      ansible.playbook = "provisioning/restart.yaml"
+      ansible.verbose = "vvvv"
+      ansible.extra_vars = {
+        pg_mnt_path: "/dev/sda1",
+        conf: conf 
+      }
+    end
   end
 end

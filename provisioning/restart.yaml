@@ -1,0 +1,32 @@
+---
+- hosts: all
+  gather_facts: yes
+  sudo: yes
+
+  vars_files:
+    - vars/common.yaml
+    - vars/newslynx-core.yaml
+    - vars/newslynx-app.yaml
+    - vars/postgres.yaml
+
+  tasks:
+    - name: restart redis + postgresql
+      service: name={{ item }} state=restarted
+      with_items:
+        - redis-server 
+        - postgresql 
+
+    - name: restart supervisor 
+      command: "supervisorctl restarted"
+      sudo: yes
+
+    - name: restart nginx
+      service: name={{ item }} state=restarted
+      with_items:
+        - nginx
+
+    - name: start app 
+      command: "npm run start-automation"
+      args:
+        chdir: "{{home}}/newslynx-app"
+      sudo: yes
