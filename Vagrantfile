@@ -55,6 +55,7 @@ Vagrant.configure("2") do |config|
     machine.vm.provider :aws do |aws, override|
       override.vm.box = "dummy"
       override.vm.synced_folder ".", "/vagrant", disabled: true
+      # aws.security_groups = [ 'vagrant' ]
       aws.access_key_id = secrets['aws_access_key_id']
       aws.secret_access_key = secrets['aws_secret_access_key']
       aws.keypair_name = secrets['keypair_name']
@@ -78,7 +79,8 @@ Vagrant.configure("2") do |config|
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
         pg_mnt_path: "/dev/sda1",
-        conf: conf 
+        conf: conf,
+        pg_password: secrets['pg_password']
       }
     end
 
@@ -88,7 +90,8 @@ Vagrant.configure("2") do |config|
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
         pg_mnt_path: "/dev/sda1",
-        conf: conf 
+        conf: conf,
+        pg_password: secrets['pg_password']
       }
     end
   end

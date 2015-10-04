@@ -2,9 +2,9 @@ core_branch: master
 
 # supervisor configurations 
 api_port: 5000
-api_workers: 4 
+api_workers: 2 
 api_timeout: 240
-bulk_workers: 5
-recipe_workers: 5
+bulk_workers: 2
+recipe_workers: 2
 cron_interval: 45
 
