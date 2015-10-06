@@ -8,6 +8,7 @@
     - vars/newslynx-core.yaml
     - vars/newslynx-app.yaml
     - vars/postgres.yaml
+    - vars/phantomjs.yaml
 
   tasks:
 

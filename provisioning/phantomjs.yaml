@@ -1,0 +1,32 @@
+---
+- name: stat phantomjs exists
+  stat: path="{{phantom_path}}"
+  register: phantomjs
+
+- name: install phantomjs apt dependencies
+  apt: name={{item}} state=present
+  with_items:
+    - build-essential
+    - g++
+    - flex 
+    - bison 
+    - gperf 
+    - perl 
+    - libsqlite3-dev
+    - libfontconfig1-dev
+    - libicu-dev 
+    - libfreetype6
+    - libssl-dev
+    - libpng-dev
+    - libjpeg-dev
+    - python-dev
+    - libx11-dev
+    - libxext-dev
+  when: not phantomjs.stat.exists
+
+- name: checkout the master branch of newslynx-core
+  command: "npm install -g phantomjs"
+  when: not phantomjs.stat.exists
+  sudo: yes
+
+
