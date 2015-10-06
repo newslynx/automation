@@ -4,8 +4,7 @@
 sudo -u postgres pg_dump {{ pg_name }} > /tmp/newslynx-db-`date +%Y-%m-%d`.sql
 
 # move local to s3
-sudo -u root s3cmd put /tmp/newslynx-db-`date +%Y-%m-%d`.sql \
-	s3://{{conf.s3_bucket}}/backups/
+sudo -u root s3cmd put /tmp/newslynx-db-`date +%Y-%m-%d`.sql s3://{{conf.s3_bucket}}/backups/
 
 # remove local version
 rm /tmp/newslynx-db-`date +%Y-%m-%d`.sql
