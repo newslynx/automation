@@ -11,7 +11,7 @@
 
   tasks:
 
-    # Common.
+    # Common apt packages
     - name: Install common apt packages
       apt: name={{item}} state=present update_cache=yes
       with_items:
@@ -24,8 +24,12 @@
         - make
       sudo: yes
 
+    # directory structure
     - name: ensure the root directory exists
       file: "state=directory path={{home}} mode=0700"
+
+    - name: ensure the scripts directory exists
+      file: "state=directory path={{home}}/scripts mode=0700"
 
     # Roles
     - include: newslynx-core.yaml

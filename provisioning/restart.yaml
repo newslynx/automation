@@ -10,23 +10,18 @@
     - vars/postgres.yaml
 
   tasks:
-    - name: restart redis + postgresql
-      service: name={{ item }} state=restarted
-      with_items:
-        - redis-server 
-        - postgresql 
 
-    - name: restart supervisor 
-      command: "supervisorctl restarted"
-      sudo: yes
-
-    - name: restart nginx
-      service: name={{ item }} state=restarted
-      with_items:
-        - nginx
-
-    - name: start app 
-      command: "npm run start-automation"
+    - name: restart app 
+      command: "npm run forever-restart"
       args:
         chdir: "{{home}}/newslynx-app"
       sudo: yes
+
+    # RESTART #
+    - name: restart services
+      service: name={{ item }} state=restarted
+      with_items:
+        - redis-server 
+        - postgresql
+        - supervisor
+        - nginx 

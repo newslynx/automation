@@ -1,6 +1,6 @@
 ---
-- include: postgres.yaml
-- include: redis.yaml
+# - include: postgres.yaml
+# - include: redis.yaml
 
 - name: install newslynx-core apt requirements.
   apt: name={{item}} state=present update_cache=yes

@@ -1,4 +1,4 @@
 # apt dependencies
 home: /opt/newslynx
 conf: "{{ lookup('env', 'conf')}}"
-
+secrets: "{{ lookup('env', 'secrets')}}"

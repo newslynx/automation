@@ -27,7 +27,7 @@
         mode: 0700
       sudo: yes
 
-    - name: update newslynx-core
+    - name: update newslynx-core + sous chefs
       command: make app_install 
       args:
         chdir: "{{home}}/newslynx-core/"
@@ -54,18 +54,10 @@
 
 
     # RESTART #
-
-    - name: restart redis + postgresql
+    - name: restart services
       service: name={{ item }} state=restarted
       with_items:
         - redis-server 
-        - postgresql 
-
-    - name: restart supervisor 
-      command: "service supervisor restart"
-      sudo: yes
-
-    - name: restart nginx
-      service: name={{ item }} state=restarted
-      with_items:
-        - nginx
+        - postgresql
+        - supervisor
+        - nginx 

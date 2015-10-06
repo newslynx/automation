@@ -35,7 +35,7 @@ api_dns: {{conf.api_dns}}
 {% endif %}
 
 # database
-sqlalchemy_database_uri: "postgres://postgres:{{pg_password}}@localhost:5432/{{pg_name}}"
+sqlalchemy_database_uri: "postgres://postgres:{{secrets.pg_password}}@localhost:5432/{{pg_name}}"
 {% if conf.sqlalchemy_pool_size is defined %}
 sqlalchemy_pool_size: {{conf.sqlalchemy_pool_size}}
 {% endif %}

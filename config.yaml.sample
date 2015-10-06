@@ -23,6 +23,11 @@ api_url: http://localhost:5000
 api_version: v1
 api_dns: http://changeme.com:5000
 
+# s3 bucket for db backups
+## MUST BE UNIQUE OR ALREADY EXISTS, else automation will fail.
+## You should not share buckets across deployments. Use one bucket for one database.
+s3_bucket: newslynx-myorganization
+
 # Database curations
 sqlalchemy_pool_size: 1000
 sqlalchemy_pool_max_overflow: 100

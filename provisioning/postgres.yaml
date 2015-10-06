@@ -11,6 +11,8 @@
 
 - name: stop postgres
   action: service name=postgresql state=stopped
+  sudo: yes
+  ignore_errors: yes
 
 - name: create a ext4 filesystem if a mounted drive is specified
   command: "mkfs.ext4 -F {{pg_mnt_path}}"
@@ -26,10 +28,6 @@
 - name: change the data directory to a mounted drive in pgconf
   lineinfile: dest={{pg_conf}} state=present regexp="^data_directory" line="data_directory=\'{{pg_dir}}\'"
 
-- name: change the data directory to a mounted drive in pgconf
-  lineinfile: dest={{pg_conf}} state=present regexp="^data_directory" line="data_directory=\'{{pg_dir}}\'"
-  when: pg_mnt
-
 - name: reconfigure the db with the new data directory
   command: "/usr/lib/postgresql/9.3/bin/initdb -D {{pg_dir}}"
   sudo: yes
@@ -40,7 +38,7 @@
   action: service name=postgresql state=started
 
 - name: set postgres password
-  command: psql -d postgres -U postgres -c "ALTER USER postgres with password '{{pg_password}}'"
+  command: psql -d postgres -U postgres -c "ALTER USER postgres with password '{{secrets.pg_password}}'"
   sudo: yes
   sudo_user: postgres
   ignore_errors: yes
@@ -50,4 +48,57 @@
   sudo: yes
   sudo_user: postgres
   ignore_errors: yes
+
+# backups
+
+# require s3 role
+- include: s3cmd.yaml
+
+# create backup directory
+- name: ensure backup s3 bucket exists
+  command: "s3cmd mb s3://{{conf.s3_bucket}}"
+  sudo: yes
+  when: secrets.aws_access_key_id is defined
+
+# copy backup script to machine
+- name: "create db backup script."
+  template: 
+  args:
+    src: "templates/db-backup.sh.j2"
+    dest: "{{ home }}/scripts/db-backup.sh"
+    mode: 0700
+  sudo: yes
+
+# set daily cron
+- name: daily postgres backups to s3. 
+  cron:
+    name: "postgres-backup"
+    day: "*"
+    hour: 1
+    job: "/bin/sh {{ home }}/scripts/db-backup.sh"
+  sudo: yes
+
+# utils
+
+# copy idle transaction management script to machine
+- name: "create idle transaction management script"
+  template: 
+  args:
+    src: "templates//db-kill-idle-sessions.sh.j2"
+    dest: "{{ home }}/scripts/db-kill-idle-sessions.sh"
+    mode: 0700
+  sudo: yes
+
+# set hourly cron 
+# TODO customize
+- name: kill stale transactions every hour.
+  cron:
+    name: "postgres-idle-transactions"
+    minute: "*/15"
+    job: "/bin/sh {{ home }}/scripts/db-kill-idle-sessions.sh"
+  sudo: yes
+
+
+
+
 

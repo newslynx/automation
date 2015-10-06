@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# cancel all pids of idle transactions older than a custom pg interval.
+sudo -u postgres psql -c "select pg_terminate_backend(t.pid) from (select pid from pg_stat_activity where state = 'idle in transaction' and (now() - backend_start) > interval '{{pg_max_idle_interval}}') t;"

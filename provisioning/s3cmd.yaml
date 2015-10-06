@@ -1,0 +1,26 @@
+---
+- name: install s3cmd python requirements.
+  apt: name={{item}} state=present
+  with_items:
+    - python-dev
+    - python-setuptools
+  sudo: yes
+
+- name: install pip
+  command: easy_install pip
+  sudo: yes
+
+- name: "install s3cmd."
+  pip: name={{item}} 
+  with_items:
+    - boto 
+    - s3cmd
+  sudo: yes
+
+- name: "create s3 config."
+  template: 
+  args:
+    src: "templates/s3cfg.j2"
+    dest: "~/.s3cfg"
+    mode: 0700
+  sudo: yes
