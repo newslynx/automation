@@ -17,4 +17,5 @@ aws:
     instance_type: m4.large
     ssh_username: ubuntu
     elastic_ip: true
-    ebs_size: 10 # GB
+    root_volume_size: 10 # GB
+    db_volume_size: 30 # GB

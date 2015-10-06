@@ -72,8 +72,12 @@ Vagrant.configure("2") do |config|
       aws.ami = aws_conf['ami']
       aws.block_device_mapping = [
         { 
-          'DeviceName' => '/dev/sda1', 
-          'Ebs.VolumeSize' => aws_conf['ebs_size'] 
+          'DeviceName' => '/dev/xvda', 
+          'Ebs.VolumeSize' => aws_conf['root_volume_size'] 
+        },
+        { 
+          'DeviceName' => '/dev/xvdb', 
+          'Ebs.VolumeSize' => aws_conf['db_volume_size'] 
         }
       ]
       aws.instance_type = aws_conf['instance_type']
@@ -90,7 +94,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "provisioning/main.yaml"
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
-        pg_mnt_path: "/dev/sda1",
+        pg_mnt_path: "/dev/xvdb",
         conf: conf,
         secrets: secrets
       }
@@ -102,7 +106,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "provisioning/update.yaml"
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
-        pg_mnt_path: "/dev/sda1",
+        pg_mnt_path: "/dev/xvdb",
         conf: conf,
         secrets: secrets
       }
@@ -114,7 +118,7 @@ Vagrant.configure("2") do |config|
       ansible.playbook = "provisioning/restart.yaml"
       ansible.verbose = "vvvv"
       ansible.extra_vars = {
-        pg_mnt_path: "/dev/sda1",
+        pg_mnt_path: "/dev/xvdb",
         conf: conf,
         secrets: secrets
 
