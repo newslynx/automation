@@ -177,13 +177,13 @@ embedly_access_token: {{conf.embedly_access_token}}
 
 {% if conf.mail_username is defined %}
 # Email
-mail_username: {{conf.mail_username}}
+mail_username: "{{conf.mail_username}}"
 {% endif %}
 {% if conf.mail_password is defined %}
-mail_password: {{conf.mail_password}}
+mail_password: "{{conf.mail_password}}"
 {% endif %}
 {% if conf.mail_server is defined %}
-mail_server: {{conf.mail_server}}
+mail_server: "{{conf.mail_server}}"
 {% endif %}
 {% if conf.smtp_port is defined %}
 smtp_port: {{conf.smtp_port}}
@@ -194,29 +194,35 @@ imap_port: {{conf.imap_port}}
 
 # reddit
 {% if conf.reddit_user_agent is defined %}
-reddit_user_agent: {{conf.reddit_user_agent}}
+reddit_user_agent: "{{conf.reddit_user_agent}}"
 {% endif %}
 
 # notifications
 {% if conf.notify_methods is defined %}
-notify_methods: {{conf.notify_methods}}
+notify_methods: 
+{% for m in conf.notify_methods %}
+- {{m}}
+{% endfor %}
 {% endif %}
 {% if conf.notify_email_recipients is defined %}
-notify_email_recipients: {{conf.notify_email_recipients}}
+notify_email_recipients:
+{% for m in conf.notify_email_recipients %}
+- {{m}}
+{% endfor %}
 {% endif %}
 {% if conf.notify_email_subject_prefix is defined %}
-notify_email_subject_prefix: {{conf.notify_email_subject_prefix}}
+notify_email_subject_prefix: "{{conf.notify_email_subject_prefix}}"
 {% endif %}
 {% if conf.notify_slack_webhook is defined %}
-notify_slack_webhook: {{conf.notify_slack_webhook}}
+notify_slack_webhook: "{{conf.notify_slack_webhook}}"
 {% endif %}
 {% if conf.notify_slack_channel is defined %}
-notify_slack_channel: {{conf.notify_slack_channel}}
+notify_slack_channel: "{{conf.notify_slack_channel}}"
 {% endif %}
 {% if conf.notify_slack_username is defined %}
-notify_slack_username: {{conf.notify_slack_username}}
+notify_slack_username: "{{conf.notify_slack_username}}"
 {% endif %}
 {% if conf.notify_slack_emoji is defined %}
-notify_slack_emoji: {{conf.notify_slack_emoji}}
+notify_slack_emoji: "{{conf.notify_slack_emoji}}"
 {% endif %}
 
