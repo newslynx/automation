@@ -205,10 +205,10 @@ notify_methods: {{conf.notify_methods}}
 notify_email_recipients: {{conf.notify_email_recipients}}
 {% endif %}
 {% if conf.notify_email_subject_prefix is defined %}
-notify_email_subject_prefix:: {{conf.notify_email_subject_prefix:}}
+notify_email_subject_prefix: {{conf.notify_email_subject_prefix:}}
 {% endif %}
 {% if conf.notify_slack_webhook is defined %}
-notify_slack_webhook:: {{conf.notify_slack_webhook:}}
+notify_slack_webhook: {{conf.notify_slack_webhook:}}
 {% endif %}
 {% if conf.notify_slack_channel is defined %}
 notify_slack_channel: {{conf.notify_slack_channel}}
