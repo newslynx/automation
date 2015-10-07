@@ -35,4 +35,5 @@
     # Roles
     - include: newslynx-core.yaml
     - include: newslynx-app.yaml
+    - include: phantomjs.yaml
 
