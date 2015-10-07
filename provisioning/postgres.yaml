@@ -14,23 +14,32 @@
   sudo: yes
   ignore_errors: yes
 
+- name: stat phantomjs exists
+  stat: path="{pg_mnt_path}}"
+  register: mounted
+
 - name: create a ext4 filesystem if a mounted drive is specified
   command: "mkfs.ext4 -F {{pg_mnt_path}}"
+  when: not mounted.stat.exists
 
 - name: mount a drive if specified
   mount: "name={{pg_mnt_point}} src={{pg_mnt_path}} fstype=ext4 state=mounted"
+  when: not mounted.stat.exists
 
 - name: ensure the postgres data directory exists
   file: "state=directory path={{pg_dir}} mode=0700 owner=postgres group=postgres"
+  when: not mounted.stat.exists
 
 - name: change the data directory to a mounted drive in pgconf
   lineinfile: dest={{pg_conf}} state=present regexp="^data_directory" line="data_directory=\'{{pg_dir}}\'"
+  when: not mounted.stat.exists
 
 - name: reconfigure the db with the new data directory
   command: "/usr/lib/postgresql/9.3/bin/initdb -D {{pg_dir}}"
   sudo: yes
   sudo_user: postgres
   ignore_errors: yes
+  when: not mounted.stat.exists
 
 - name: restart postgres
   action: service name=postgresql state=started
