@@ -1,7 +1,6 @@
 ---
 - include: postgres.yaml
 - include: redis.yaml
-- include: phantomjs.yaml
 
 - name: install newslynx-core apt requirements.
   apt: name={{item}} state=present update_cache=yes
