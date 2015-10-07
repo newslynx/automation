@@ -42,7 +42,7 @@
 - name: copy ~/.newslynx/config.yaml template
   template: 
   args:
-    src: "templates/.newslynx/config.yaml.j2"
+    src: "templates/config.yaml.j2"
     dest: "~/.newslynx/config.yaml"
     mode: 0700
   sudo: yes
