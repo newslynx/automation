@@ -196,3 +196,27 @@ imap_port: {{conf.imap_port}}
 {% if conf.reddit_user_agent is defined %}
 reddit_user_agent: {{conf.reddit_user_agent}}
 {% endif %}
+
+# notifications
+{% if conf.notify_methods is defined %}
+notify_methods: {{conf.notify_methods}}
+{% endif %}
+{% if conf.notify_email_recipients is defined %}
+notify_email_recipients: {{conf.notify_email_recipients}}
+{% endif %}
+{% if conf.notify_email_subject_prefix: is defined %}
+notify_email_subject_prefix:: {{conf.notify_email_subject_prefix:}}
+{% endif %}
+{% if conf.notify_slack_webhook: is defined %}
+notify_slack_webhook:: {{conf.notify_slack_webhook:}}
+{% endif %}
+{% if conf.notify_slack_channel is defined %}
+notify_slack_channel: {{conf.notify_slack_channel}}
+{% endif %}
+{% if conf.notify_slack_username is defined %}
+notify_slack_username: {{conf.notify_slack_username}}
+{% endif %}
+{% if conf.notify_slack_emoji is defined %}
+notify_slack_emoji: {{conf.notify_slack_emoji}}
+{% endif %}
+

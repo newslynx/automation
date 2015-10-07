@@ -87,3 +87,16 @@ network_max_retries: 2
 
 # Reddit
 reddit_user_agent: Newslynx (http://newslynx.org)
+
+# notify (All optional.)
+notify_methods:
+    - slack
+    - email
+notify_email_recipients:
+    - yourmeailaddress@newslynx.org
+notify_email_subject_prefix: "[NewsLynx Errors]"
+notify_slack_webhook: https://hooks.slack.com/services/asd/fdsaf/fdsafd # see: https://api.slack.com/incoming-webhooks
+notify_slack_channel: "#notifications"
+notify_slack_username: merlynne
+notify_slack_emoji: ":-1:"
+
