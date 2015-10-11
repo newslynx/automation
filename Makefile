@@ -1,9 +1,10 @@
+# NOTE: The following comands have a hardcoded path of `/opt/newslynx/` for the `home` variable found in `provisioning/vars/common.yaml`
 
 # COMMON #
 
 update:
 	# update newslynx-core and newslynx-app
-	vagrant provision --provision-with update
+	VAGRANT_LOG=info vagrant provision --provision-with update
 
 logs:
 	# tail the logs of a process.
@@ -11,19 +12,33 @@ logs:
 
 destroy:
 	# destroy the current box
-	vagrant destroy
+	VAGRANT_LOG=info vagrant destroy
 
 reprovision:
 	# reprovision the box
-	vagrant provision --provision-with main
+	VAGRANT_LOG=info vagrant provision --provision-with main
 
+restart: 
+	# reprovision the box
+	VAGRANT_LOG=info vagrant provision --provision-with restart
+
+stop: 
+	# reprovision the box
+	VAGRANT_LOG=info vagrant provision --provision-with stop
+
+start: 
+	# reprovision the box
+	VAGRANT_LOG=info vagrant provision --provision-with start
+
+# restore: 
+# 	vagrant ssh -c 'sudo -u root bash /opt/newslynx/scripts/db-restore.sh $(date)'
 
 # VIRTUALBOX # 
 
 init_vb:
 	vagrant --version
 	vagrant up --provider=virtualbox --no-provision
-	vagrant provision --provision-with main
+	VAGRANT_LOG=info vagrant provision --provision-with main
 
 
 # AWS #
@@ -31,4 +46,4 @@ init_vb:
 init_aws:
 	vagrant --version
 	vagrant up --provider=aws --no-provision
-	vagrant provision --provision-with main
+	VAGRANT_LOG=info vagrant provision --provision-with main

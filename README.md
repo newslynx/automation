@@ -127,6 +127,42 @@ You can also query the API on port `5000` of this same address:
 $ curl http://<newslynx-location>:5000/api/v1/me 
 ```
 
+### Restoring from backup
+
+Automation uploads date-stamped backups every day to S3. To erase your current database and restore from a backup, run the following where `YYYY-MM-DD` is a "year, month, day" string of the backup you wish to restore. If you don't want to erase your current database but merely add to it, skip the steps below where you drop the database and schema. However, depending on what you're trying to do, you might end up with conflicing ids and therefore such a strategy is not recommended. If you've chosen a different name for your database other than `newlynx`, substitute that below.
+
+```
+# Stop all processes
+$ make stop
+
+# ssh into your box
+$ vagrant ssh
+
+# Enable root user
+$ sudo su
+
+# Start postgres
+$ sudo service postgresql start
+
+## Begin erase data section
+$ sudo -u postgres psql
+DROP DATABASE newslynx;
+\q
+## end erase data section
+
+# Run the backup script, here using `2015-10-11` as an example date to restore from
+$ sudo -u root bash /opt/newslynx/scripts/db-restore.sh 2015-10-11
+
+# Exit root user mode and log out of the newslynx box
+$ exit
+$ logout
+
+# Start your server again
+$ make start
+```
+
+This process will throw a number of warnings that elements already exist. You can safely ignore them.
+
 ## Debugging 
 
 If something goes wrong with the deployment (which you should see in the logs), you can log into the VM using the same command:

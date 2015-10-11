@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# You must be root to execute this script
+# USAGE: 
+## $ bash db-restore.sh 2015-01-23
+
+# copy s3 to local
+# sudo -u root s3cmd get s3://{{conf.s3_bucket}}/backups/{{conf.s3_backup_group}}/newslynx-db-$1.sql /tmp/newslynx-db-$1.sql
+
+# restore from backup
+sudo -u postgres pg_restore --create -d postgres /tmp/newslynx-db-$1.sql
+
+# remove local version
+sudo -u root rm /tmp/newslynx-db-$1.sql

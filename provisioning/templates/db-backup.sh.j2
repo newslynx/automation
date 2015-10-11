@@ -1,10 +1,12 @@
 #!/bin/sh
 
+CURRENT_DATE=`date +%Y-%m-%d`
+
 # create local backup
-sudo -u postgres pg_dump {{ pg_name }} > /tmp/newslynx-db-`date +%Y-%m-%d`.sql
+sudo -u postgres pg_dump -Fc {{ pg_name }} > /tmp/newslynx-db-$CURRENT_DATE.sql
 
 # move local to s3
-sudo -u root s3cmd put /tmp/newslynx-db-`date +%Y-%m-%d`.sql s3://{{conf.s3_bucket}}/backups/
+sudo -u root s3cmd put /tmp/newslynx-db-$CURRENT_DATE.sql s3://{{conf.s3_bucket}}/backups/{{conf.s3_backup_group}}/
 
 # remove local version
-rm /tmp/newslynx-db-`date +%Y-%m-%d`.sql
+sudo -u root rm /tmp/newslynx-db-$CURRENT_DATE.sql

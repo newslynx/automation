@@ -1,0 +1,27 @@
+---
+- hosts: all
+  gather_facts: yes
+  sudo: yes
+
+  vars_files:
+    - vars/common.yaml
+    - vars/newslynx-core.yaml
+    - vars/newslynx-app.yaml
+    - vars/postgres.yaml
+
+  tasks:
+
+    - name: stop app 
+      command: "npm run forever-stop"
+      args:
+        chdir: "{{home}}/newslynx-app"
+      sudo: yes
+
+    # STOP #
+    - name: stop services
+      service: name={{ item }} state=stopped
+      with_items:
+        - redis-server 
+        - postgresql
+        - supervisor
+        - nginx 

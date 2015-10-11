@@ -85,6 +85,15 @@
     job: "/bin/sh {{ home }}/scripts/db-backup.sh"
   sudo: yes
 
+# copy db restore script to machine
+- name: "create db restore script."
+  template: 
+  args:
+    src: "templates/db-restore.sh.j2"
+    dest: "{{ home }}/scripts/db-restore.sh"
+    mode: 0700
+  sudo: yes
+
 # utils
 
 # copy idle transaction management script to machine

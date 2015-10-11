@@ -1,4 +1,4 @@
 # apt dependencies
-home: /opt/newslynx
+home: /opt/newslynx # If you change this value, change corresponding paths in `Makefile`.
 conf: "{{ lookup('env', 'conf')}}"
 secrets: "{{ lookup('env', 'secrets')}}"
