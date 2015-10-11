@@ -75,7 +75,7 @@ For an explanation of all make commands, see the [`Makefile`](Makefile).
 
 If you want to update to the latest version of `newslynx-core` or `newslynx-app` (currently pegged to what is on GitHub), run the following
 
-````shell
+```sh
 $ make update
 ```` 
 
@@ -83,7 +83,7 @@ $ make update
 
 You can quickly look up the logs of `newslynx-core` or `newslynx-api` with the following
 
-````shell
+```sh
 $ make logs l=<file-name> # the log name can be access, `api`, `app`, `bulk-queue`, `cron`, or `recipe-queue`.
 ````
 
@@ -93,7 +93,7 @@ You'll then want to hit <kbd>ctrl</kbd> + <kbd>c</kbd> to exit.
 
 To destroy your box, run the following
 
-````shell
+```sh
 $ make destroy
 ````
 
@@ -101,7 +101,7 @@ $ make destroy
 
 To reprovision with the `main` profile. This is generally only useful if you have created the virtual machine but haven't done any installation on it. This can happen, say, if you run `make init_vb` but forgetting to put yourself in the right virtualenv so the box is created but ansible fails.
 
-````shell
+```sh
 $ make reprovision
 ````
 
@@ -109,13 +109,13 @@ $ make reprovision
 
 Once your machine is provisioned, in either setup, login with the following command:
 
-```
+```sh
 $ vagrant ssh
 ```
 
 You can now check the public IP of the box by running:
 
-```
+```sh
 $ curl http://icanhazip.com
 ```
 
@@ -123,7 +123,7 @@ If you copy the output of this command and paste it into a browser, you should b
 
 You can also query the API on port `5000` of this same address:
 
-```
+```sh
 $ curl http://<newslynx-location>:5000/api/v1/me 
 ```
 
@@ -131,7 +131,7 @@ $ curl http://<newslynx-location>:5000/api/v1/me
 
 Automation uploads date-stamped backups every day to S3. To erase your current database and restore from a backup, run the following where `YYYY-MM-DD` is a "year, month, day" string of the backup you wish to restore. If you don't want to erase your current database but merely add to it, skip the steps below where you drop the database and schema. However, depending on what you're trying to do, you might end up with conflicing ids and therefore such a strategy is not recommended. If you've chosen a different name for your database other than `newlynx`, substitute that below.
 
-```
+```sh
 # Stop all processes
 $ make stop
 
@@ -167,31 +167,31 @@ This process will throw a number of warnings that elements already exist. You ca
 
 If something goes wrong with the deployment (which you should see in the logs), you can log into the VM using the same command:
 
-```
+```sh
 vagrant ssh
 ```
 
 All of the applications are installed as root, so you'll need to first:
 
-```
+```sh
 sudo su
 ```
 
 And then:
 
-```
+```sh
 cd /opt/newslynx/
 ```
 
 To check the logs of running processes, type:
 
-```
+```sh
 tail -n 100 logs/app.log
 ```
 
 If you should like to re-run the ansible playbook without fully destroying the Virtual Machine, run:
 
-```
+```sh
 vagrant provision --provision-with main
 ```
 
