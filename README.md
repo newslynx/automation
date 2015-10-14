@@ -219,5 +219,5 @@ When you run the above "init" commands, the following steps are executed:
 - Redis 2.8.4 (`newslynx-core`'s caching layer and task queue.)
 - Supervisor (`newslynx-core`'s daemeon manager.)
 - Nginx (The proxy server that sits in front of `newslynx-app` and the rest of the world.)
-- Forever (Not currently used but is around for potential future convenience)
+- Forever (`newslynx-app`'s daemon manager)
 
