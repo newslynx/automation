@@ -25,8 +25,8 @@ api_dns: http://changeme.com:5000
 
 # s3 bucket for db backups
 ## The bucket name must already exist or be a unique name since S3 shares a namespace across all buckets, otherwise automation will fail.
-## You should not share buckets across deployments. Use one bucket for one database.
 s3_bucket: newslynx-myorgname
+# Backups will be put in the `backups/<S3-backup-group-name>` so that you can send multiple instances backups to the same S3 bucket
 s3_backup_group: group-1
 
 # Database curations
