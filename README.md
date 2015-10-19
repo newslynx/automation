@@ -18,6 +18,8 @@ These installers are fairly straightforward if you're on Mac OS X. If you're ins
 
 Next, you should rename [`config.yaml.sample`](config.yaml.sample) to `config.yaml` and fill it out according to your preferences.  For more information on how this file is structured, refer to the [configuration docs](http://newslynx.readthedocs.org/en/latest/config.html).
 
+Also rename [`secrets.yaml.sample`](secrets.yaml.sample) to `secrets.yaml` and fill out the postgres password field to something new. If you are deploying to AWS, you also must fill out the other settings related to AWS crednetials and private keys.
+
 ## Provisioning locally 
 
 ### Starting the virutalbox
