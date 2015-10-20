@@ -60,6 +60,7 @@
 
 # require s3 role
 - include: s3cmd.yaml
+  when: secrets.aws_access_key_id is defined
 
 # create backup directory
 - name: ensure backup s3 bucket exists
@@ -75,6 +76,7 @@
     dest: "{{ home }}/scripts/db-backup.sh"
     mode: 0700
   sudo: yes
+  when: secrets.aws_access_key_id is defined
 
 # set daily cron
 - name: daily postgres backups to s3. 
@@ -84,6 +86,7 @@
     hour: 1
     job: "/bin/sh {{ home }}/scripts/db-backup.sh"
   sudo: yes
+  when: secrets.aws_access_key_id is defined
 
 # copy db restore script to machine
 - name: "create db restore script."
@@ -93,6 +96,7 @@
     dest: "{{ home }}/scripts/db-restore.sh"
     mode: 0700
   sudo: yes
+  when: secrets.aws_access_key_id is defined
 
 # utils
 
