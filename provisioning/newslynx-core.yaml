@@ -65,7 +65,7 @@
 - include: supervisor.yaml  
   vars: 
     name: api  
-    exec: "/usr/local/bin/gunicorn newslynx.views:app -b 0.0.0.0:{{api_port}} -w {{api_workers}} -k gevent -t {{api_timeout}}"
+    exec: "/usr/local/bin/gunicorn newslynx.views:app -b 0.0.0.0:{{api_port}} -w {{api_workers}} -k gevent -t {{api_timeout}} --access-logfile {{home}}/logs/access-api.log"
     directory: "{{home}}/newslynx-core"
     logdir: "{{home}}/logs"
     numprocs: 1
